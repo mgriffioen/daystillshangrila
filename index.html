@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Days Till Shangri-La</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2vw;
+    }
+
+    #countdown {
+      font-family: 'Georgia', serif;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.05;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown"></div>
+
+  <script>
+    function randomHSLColor() {
+      const h = Math.floor(Math.random() * 360);
+      const s = Math.floor(Math.random() * 40) + 50;
+      const l = Math.floor(Math.random() * 30) + 20;
+      return { h, s, l };
+    }
+
+    function contrastingColor(h, s, l) {
+      const newH = (h + 180) % 360;
+      const newL = l < 50 ? 100 - l : 100 - l;
+      return { h: newH, s, l: newL };
+    }
+
+    const bg = randomHSLColor();
+    const fg = contrastingColor(bg.h, bg.s, bg.l);
+
+    document.body.style.backgroundColor = `hsl(${bg.h}, ${bg.s}%, ${bg.l}%)`;
+    document.getElementById('countdown').style.color = `hsl(${fg.h}, ${fg.s}%, ${fg.l}%)`;
+
+    function toWords(n) {
+      const ones = ['zero','one','two','three','four','five','six','seven','eight','nine',
+                    'ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen',
+                    'seventeen','eighteen','nineteen'];
+      const tens = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+
+      if (n < 20) return ones[n];
+      if (n < 100) {
+        return tens[Math.floor(n / 10)] + (n % 10 ? '-' + ones[n % 10] : '');
+      }
+      if (n < 1000) {
+        return ones[Math.floor(n / 100)] + ' hundred' +
+          (n % 100 ? ' ' + toWords(n % 100) : '');
+      }
+      return n.toString();
+    }
+
+    function getDaysUntilShangriLa() {
+      const now = new Date();
+      const year = now.getFullYear();
+
+      let shangriLa = new Date(year, 7, 14);
+
+      const end = new Date(year, 7, 16, 23, 59, 59);
+      if (now > end) {
+        shangriLa = new Date(year + 1, 7, 14);
+      }
+
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const target = new Date(shangriLa.getFullYear(), shangriLa.getMonth(), shangriLa.getDate());
+
+      const diff = Math.round((target - today) / (1000 * 60 * 60 * 24));
+      return diff;
+    }
+
+    function buildMessage(days) {
+      if (days === 0) return "Shangri-La\nis\nhere";
+      if (days < 0) return "Shangri-La\nis\nhappening\nnow";
+
+      const word = toWords(days);
+      const dayWord = days === 1 ? 'day' : 'days';
+      return `${word}\n${dayWord}\ntill\nShangri-La`;
+    }
+
+    function fitText(el) {
+      let size = 10;
+      el.style.fontSize = size + 'vw';
+      const maxW = window.innerWidth * 0.96;
+      const maxH = window.innerHeight * 0.96;
+
+      while (size < 200 && el.scrollWidth <= maxW && el.scrollHeight <= maxH) {
+        size += 0.5;
+        el.style.fontSize = size + 'vw';
+      }
+      el.style.fontSize = (size - 0.5) + 'vw';
+    }
+
+    const days = getDaysUntilShangriLa();
+    const el = document.getElementById('countdown');
+    el.textContent = buildMessage(days);
+    el.style.whiteSpace = 'pre-line';
+
+    fitText(el);
+    window.addEventListener('resize', () => fitText(el));
+  </script>
+</body>
+</html>
