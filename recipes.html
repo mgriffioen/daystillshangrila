@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#221c19">
+<title>Korean BBQ Cookout — Recipes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f3ee;
+    --ink:#1c1714;
+    --ink-soft:#5c5149;
+    --ember:#bf3410;
+    --ember-deep:#972608;
+    --gold:#b9791a;
+    --scallion:#3f6b3a;
+    --char:#221c19;
+    --char-soft:#3a312c;
+    --line:#e5dccf;
+    --card:#ffffff;
+    --font-display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --font-body:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --wrap:660px;
+  }
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+
+  /* ---------- HERO / MENU BOARD ---------- */
+  .hero{
+    background:var(--char);
+    color:var(--paper);
+    padding:calc(2.6rem + env(safe-area-inset-top)) 1.25rem 2.1rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{ /* ember heat line */
+    content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--ember-deep),var(--ember),var(--gold),var(--ember));
+  }
+  .hero-inner{max-width:var(--wrap);margin:0 auto;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 .7rem;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(2.5rem,11vw,4rem);
+    line-height:.95;
+    letter-spacing:-.02em;
+    margin:0 0 .6rem;
+  }
+  h1 .flame{color:var(--ember);}
+  .hero p.lead{
+    margin:0 0 1.6rem;color:#d9cdc0;font-size:1.02rem;max-width:40ch;
+  }
+  .menu{
+    list-style:none;margin:0;padding:1.1rem 0 0;border-top:1px solid #40352f;
+    display:grid;gap:.15rem;
+  }
+  .menu li{
+    display:flex;align-items:baseline;gap:.7rem;padding:.5rem 0;
+    border-bottom:1px solid #322925;
+  }
+  .menu li:last-child{border-bottom:none;}
+  .menu .dot{width:.5rem;height:.5rem;border-radius:50%;flex:none;transform:translateY(-1px);}
+  .menu .dish{font-weight:600;color:var(--paper);}
+  .menu .role{
+    font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+    color:#a9998c;margin-left:auto;white-space:nowrap;padding-left:.6rem;
+  }
+
+  /* ---------- STICKY NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,243,238,.92);
+    backdrop-filter:saturate(1.4) blur(8px);
+    -webkit-backdrop-filter:saturate(1.4) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-scroll{
+    max-width:var(--wrap);margin:0 auto;
+    display:flex;gap:.4rem;overflow-x:auto;padding:.6rem 1rem;
+    scrollbar-width:none;
+  }
+  .nav-scroll::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;color:var(--ink-soft);
+    padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;
+    background:var(--card);transition:background .15s,color .15s,border-color .15s;
+    white-space:nowrap;
+  }
+  .chip:active{transform:scale(.96);}
+  .chip.active{background:var(--ember);color:#fff;border-color:var(--ember);}
+
+  main{max-width:var(--wrap);margin:0 auto;padding:0 1rem 4rem;}
+
+  /* ---------- GAME PLAN ---------- */
+  .plan{
+    margin:1.6rem 0 .5rem;background:var(--char);color:var(--paper);
+    border-radius:16px;padding:1.4rem 1.25rem 1.5rem;
+  }
+  .plan h2{
+    font-family:var(--font-display);font-weight:700;font-size:1.5rem;margin:0 0 .3rem;
+    letter-spacing:-.01em;
+  }
+  .plan .sub{color:#c9bcae;font-size:.92rem;margin:0 0 1.2rem;}
+  .timeline{list-style:none;margin:0;padding:0;position:relative;}
+  .timeline li{
+    position:relative;padding:0 0 1.15rem 1.6rem;
+    border-left:2px solid #453a34;
+  }
+  .timeline li:last-child{border-left-color:transparent;padding-bottom:0;}
+  .timeline li::before{
+    content:"";position:absolute;left:-7px;top:.3rem;width:12px;height:12px;border-radius:50%;
+    background:var(--ember);box-shadow:0 0 0 3px var(--char);
+  }
+  .timeline .when{
+    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);display:block;margin-bottom:.15rem;
+  }
+  .timeline .what{color:#ece3d9;font-size:.96rem;}
+  .timeline .what b{color:#fff;font-weight:600;}
+
+  /* ---------- RECIPE CARD ---------- */
+  .recipe{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:1.4rem 1.2rem 1.5rem;margin:1.1rem 0;
+    scroll-margin-top:4.2rem;
+  }
+  .r-eyebrow{
+    display:flex;align-items:center;gap:.5rem;
+    font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 .5rem;
+  }
+  .r-eyebrow .tick{width:1.4rem;height:2px;background:var(--ember);}
+  .recipe h2{
+    font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,6vw,2rem);
+    line-height:1.05;letter-spacing:-.015em;margin:0 0 .9rem;
+  }
+  .meta{
+    list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.3rem;padding:0;
+  }
+  .meta li{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:.35rem .6rem;line-height:1.2;
+  }
+  .meta .k{
+    display:block;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .meta .v{font-weight:600;font-size:.9rem;}
+
+  .section-label{
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ember-deep);margin:1.4rem 0 .6rem;display:flex;align-items:center;gap:.6rem;
+  }
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .hint{
+    font-family:var(--font-body);font-size:.72rem;letter-spacing:0;text-transform:none;
+    color:var(--ink-soft);font-style:italic;
+  }
+
+  /* ingredients */
+  ul.ingredients{list-style:none;margin:0;padding:0;}
+  ul.ingredients li{
+    display:flex;align-items:flex-start;gap:.75rem;
+    padding:.62rem .4rem;border-radius:9px;cursor:pointer;
+    min-height:44px;
+  }
+  ul.ingredients li:active{background:var(--paper);}
+  .check{
+    flex:none;width:22px;height:22px;border-radius:6px;border:2px solid #cdbfae;
+    margin-top:.12rem;position:relative;transition:background .12s,border-color .12s;
+  }
+  .check::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);
+    transition:transform .12s;
+  }
+  li.done .check{background:var(--scallion);border-color:var(--scallion);}
+  li.done .check::after{transform:rotate(45deg) scale(1);}
+  .ing-txt{flex:1;}
+  .ing-txt .amt{font-weight:700;color:var(--ink);}
+  .ing-txt .alt{color:var(--ink-soft);font-size:.85rem;}
+  li.done .ing-txt{opacity:.42;text-decoration:line-through;text-decoration-color:var(--ink-soft);}
+
+  /* steps */
+  ol.steps{list-style:none;margin:0;padding:0;counter-reset:step;}
+  ol.steps li{
+    display:flex;gap:.9rem;padding:.55rem 0;align-items:flex-start;
+  }
+  .num{
+    counter-increment:step;flex:none;width:30px;height:30px;border-radius:50%;
+    background:var(--ember);color:#fff;font-family:var(--font-mono);font-weight:700;
+    font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .12s,transform .12s;user-select:none;margin-top:.1rem;
+  }
+  .num::before{content:counter(step);}
+  .num:active{transform:scale(.9);}
+  li.done .num{background:var(--scallion);}
+  li.done .num::before{content:"✓";}
+  .step-body{flex:1;padding-top:.05rem;}
+  .step-body .st-title{font-weight:700;display:block;margin-bottom:.1rem;}
+  .step-body .st-text{color:var(--ink);}
+  li.done .step-body{opacity:.5;}
+  li.done .step-body .st-text{text-decoration:line-through;text-decoration-color:var(--ink-soft);}
+  .timer{
+    display:inline-flex;align-items:center;gap:.35rem;margin-top:.4rem;
+    font-family:var(--font-mono);font-size:.74rem;font-weight:700;letter-spacing:.03em;
+    color:var(--gold);background:#fbf4e6;border:1px solid #f0e0c2;
+    padding:.2rem .5rem;border-radius:6px;
+  }
+  .timer::before{content:"⏱";font-size:.8rem;}
+
+  /* notes */
+  .notes{
+    margin-top:1.3rem;background:#fbf3ef;border:1px solid #f1d9cf;
+    border-left:4px solid var(--ember);border-radius:10px;padding:.85rem 1rem;
+    font-size:.92rem;color:#4b3b34;
+  }
+  .notes .nlabel{
+    font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ember-deep);font-weight:700;display:block;margin-bottom:.35rem;
+  }
+  .notes p{margin:.4rem 0;}
+  .notes p:first-of-type{margin-top:0;}
+  .notes p:last-child{margin-bottom:0;}
+
+  /* reset */
+  .reset{
+    margin-top:1rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);background:none;border:none;
+    cursor:pointer;padding:.3rem 0;text-decoration:underline;text-underline-offset:3px;
+  }
+  .reset:active{color:var(--ember);}
+
+  footer{
+    text-align:center;color:var(--ink-soft);font-size:.82rem;
+    padding:2rem 1rem 2.5rem;
+  }
+  footer .divider{width:40px;height:2px;background:var(--ember);margin:0 auto 1rem;}
+
+  a:focus-visible,button:focus-visible,li:focus-visible,.num:focus-visible{
+    outline:2.5px solid var(--ember);outline-offset:2px;border-radius:6px;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none!important;}
+  }
+  @media print{
+    nav,.reset{display:none;}
+    .hero,.plan{background:#fff;color:#000;}
+    .recipe{break-inside:avoid;border-color:#bbb;}
+    body{font-size:12pt;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Weekend Cookout · Galbi Night</p>
+    <h1>Korean&nbsp;BBQ<br><span class="flame">on the grill</span></h1>
+    <p class="lead">Four recipes, scaled for the crew. Tap any ingredient or step number to check it off as you go.</p>
+    <ul class="menu">
+      <li><span class="dot" style="background:var(--ember)"></span><span class="dish">Flanken Short Ribs (LA Galbi)</span><span class="role">Main · 7–8</span></li>
+      <li><span class="dot" style="background:var(--gold)"></span><span class="dish">Steamed Short-Grain Rice</span><span class="role">Side · 7</span></li>
+      <li><span class="dot" style="background:var(--scallion)"></span><span class="dish">Spicy Cucumber Salad</span><span class="role">Side · 7</span></li>
+      <li><span class="dot" style="background:#4a7fb0"></span><span class="dish">Gochujang Grilled Salmon</span><span class="role">Pescatarian · 2–3</span></li>
+    </ul>
+  </div>
+</header>
+
+<nav aria-label="Jump to recipe">
+  <div class="nav-scroll">
+    <a class="chip" href="#plan">Game plan</a>
+    <a class="chip" href="#ribs">Short ribs</a>
+    <a class="chip" href="#rice">Rice</a>
+    <a class="chip" href="#salad">Cucumber salad</a>
+    <a class="chip" href="#salmon">Salmon</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- GAME PLAN -->
+  <section class="plan" id="plan">
+    <h2>Game plan</h2>
+    <p class="sub">The order that keeps the grill and the timing sane.</p>
+    <ul class="timeline">
+      <li><span class="when">Night before</span><span class="what">Blend the rib marinade and <b>get the ribs marinating</b> — 12–18 hrs. Don't go past 18 (the kiwi turns the surface mushy).</span></li>
+      <li><span class="when">~2 hrs before</span><span class="what">Make the <b>cucumber salad</b> and chill. For max crunch, keep the pressed cucumbers and dressing separate and toss right before serving.</span></li>
+      <li><span class="when">~1 hr before</span><span class="what">Rinse and soak the <b>rice</b>, then cook it so it can rest covered and hold while you grill.</span></li>
+      <li><span class="when">Grill warming up</span><span class="what">While the grill is still at medium, cook the <b>salmon first</b> and hold it under foil. Doing it early keeps the fish off the meat drippings.</span></li>
+      <li><span class="when">Crank the heat</span><span class="what">Bring the grill to 500–550°F and run the <b>short ribs</b> — sear, then flip-and-brush, dropping to medium halfway.</span></li>
+      <li><span class="when">Serve</span><span class="what">Rest the ribs 5 min and cut between the bones with scissors. Plate everything with rice and salad.</span></li>
+    </ul>
+  </section>
+
+  <!-- SHORT RIBS -->
+  <section class="recipe" id="ribs">
+    <p class="r-eyebrow"><span class="tick"></span>Main · 2× batch</p>
+    <h2>Flanken Short Ribs (LA Galbi)</h2>
+    <ul class="meta">
+      <li><span class="k">Serves</span><span class="v">7–8</span></li>
+      <li><span class="k">Marinate</span><span class="v">12–18 hr</span></li>
+      <li><span class="k">Grill</span><span class="v">500–550°F</span></li>
+      <li><span class="k">Active</span><span class="v">~15 min</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">4 kg</span> flanken-cut short ribs <span class="alt">(~8.8 lb; buy ~9 lb to allow for trim)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">200 g</span> soy sauce <span class="alt">(~14 Tbsp / scant 1 cup)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">20 g</span> salt <span class="alt">(~3.5 tsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">6 g</span> black pepper <span class="alt">(~1 tsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">100 g</span> brown sugar <span class="alt">(~7 Tbsp packed)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">50 g</span> sesame oil <span class="alt">(~3.5 Tbsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">50 g</span> mirin <span class="alt">(~3 Tbsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">14</span> garlic cloves <span class="alt">(~60 g)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">20 g</span> ginger, sliced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">200 g</span> onion, diced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">100 g</span> kiwi, peeled &amp; chopped</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">300 g</span> Asian pear, peeled &amp; chopped</span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Prep the ribs</span><span class="st-text">Rinse under cold water to remove bone dust. Dry thoroughly on paper towels — dry meat chars better.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Blend the marinade</span><span class="st-text">Blend everything from soy sauce down through the Asian pear until completely smooth.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Marinate</span><span class="st-text">Split the ribs across two 9×13 dishes (or a large container / 2-gal bags), pour the marinade over, and cover fully. Refrigerate 12–18 hrs — no longer.</span><span class="timer">12–18 hr</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Preheat</span><span class="st-text">Heat the grill to 500–550°F with the lid closed.</span><span class="timer">10–15 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Sear first side</span><span class="st-text">Oil the grates. Let excess marinade drip off, lay the ribs down, close the lid, and sear until lightly charred and they release cleanly.</span><span class="timer">~3 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Flip &amp; finish</span><span class="st-text">Flip, brush the top with marinade, close the lid 1–2 min. Repeat the flip-and-brush 3–4×, dropping to medium halfway. Skip the brush on the final flip.</span><span class="timer">1–2 min / flip</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest &amp; cut</span><span class="st-text">Rest, then cut between the bones with kitchen scissors.</span><span class="timer">5 min</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>Grill in shifts — don't crowd the grates or the ribs steam instead of char. Hold finished batches loosely tented under foil.</p>
+      <p>Nearly 9 lb won't fit at once on most home grills; plan two or three rounds.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+  <!-- RICE -->
+  <section class="recipe" id="rice">
+    <p class="r-eyebrow"><span class="tick"></span>Side</p>
+    <h2>Steamed Short-Grain Rice</h2>
+    <ul class="meta">
+      <li><span class="k">Serves</span><span class="v">7</span></li>
+      <li><span class="k">Soak</span><span class="v">~30 min</span></li>
+      <li><span class="k">Cook</span><span class="v">~15 min</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">540 g</span> short-grain white rice <span class="alt">(~3 cups)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">650 ml</span> water <span class="alt">(for cooking, after rinsing)</span></span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rinse</span><span class="st-text">Rinse in cold water, swirling and draining, until it runs mostly clear (4–5 changes).</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Soak</span><span class="st-text">Combine the rinsed rice with the water in a heavy pot and let it soak.</span><span class="timer">30 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Cook</span><span class="st-text">Bring to a boil uncovered, then cover, drop to the lowest heat, and simmer until the water is absorbed.</span><span class="timer">15 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest</span><span class="st-text">Turn off the heat and leave covered — don't lift the lid.</span><span class="timer">10 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Fluff</span><span class="st-text">Fluff gently with a paddle or fork and serve.</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>Rice cooker: rinse as above, add rice, fill water to the cooker's line for 3 cups, and run the standard cycle.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+  <!-- CUCUMBER SALAD -->
+  <section class="recipe" id="salad">
+    <p class="r-eyebrow"><span class="tick"></span>Side · no cook</p>
+    <h2>Spicy Cucumber Salad (Oi Muchim)</h2>
+    <ul class="meta">
+      <li><span class="k">Serves</span><span class="v">7</span></li>
+      <li><span class="k">Active</span><span class="v">~15 min</span></li>
+      <li><span class="k">Heat</span><span class="v">Medium</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">6</span> Persian cucumbers <span class="alt">(or 2 English)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> salt <span class="alt">(for pressing)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochugaru <span class="alt">(Korean red pepper flakes)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> garlic cloves, minced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> rice vinegar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sugar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> toasted sesame seeds</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> green onions, sliced</span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Salt the cucumbers</span><span class="st-text">Slice into thin rounds (~⅛"). Toss with the salt in a colander and let sit to draw out water.</span><span class="timer">20 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Drain &amp; press</span><span class="st-text">Gently squeeze out the excess liquid, then pat dry so the salad doesn't go watery.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Mix the dressing</span><span class="st-text">Whisk the gochugaru, garlic, rice vinegar, sugar, soy sauce, and sesame oil.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Toss</span><span class="st-text">Toss the pressed cucumbers with the dressing. Top with sesame seeds and green onion.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Chill &amp; serve</span><span class="st-text">Chill briefly to let the flavors meld.</span><span class="timer">10 min</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>2 Tbsp gochugaru is medium heat — adjust to taste.</p>
+      <p>Best within an hour or two; it softens as it sits. For maximum crunch, keep the cucumbers and dressing separate and toss just before serving.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+  <!-- SALMON -->
+  <section class="recipe" id="salmon">
+    <p class="r-eyebrow"><span class="tick"></span>Pescatarian main</p>
+    <h2>Gochujang Grilled Salmon</h2>
+    <ul class="meta">
+      <li><span class="k">Serves</span><span class="v">2–3</span></li>
+      <li><span class="k">Rest glaze</span><span class="v">~15 min</span></li>
+      <li><span class="k">Heat</span><span class="v">Medium</span></li>
+      <li><span class="k">Done at</span><span class="v">125–130°F</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> skin-on salmon fillets <span class="alt">(~6 oz / 170 g each)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochujang <span class="alt">(Korean chili paste)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> honey</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> rice vinegar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> garlic cloves, minced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> ginger, grated</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">½ tsp</span> salt</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> toasted sesame seeds</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> green onions, sliced</span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Prep the salmon</span><span class="st-text">Pat dry and season the flesh side lightly with the salt. Dry fish releases more cleanly.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Mix the glaze</span><span class="st-text">Whisk the gochujang, soy, honey, sesame oil, vinegar, garlic, and ginger. Set aside half for finishing.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Glaze &amp; rest</span><span class="st-text">Brush the flesh side with half the glaze; let it sit while the grill comes to medium.</span><span class="timer">15 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Grill skin-side down</span><span class="st-text">Oil the grates. Place skin-side down over medium heat, lid closed, until the skin crisps and the fish releases.</span><span class="timer">~5 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Flip &amp; finish</span><span class="st-text">Flip carefully, brush with the reserved glaze, and grill until just opaque in the center (125–130°F).</span><span class="timer">~3 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest &amp; serve</span><span class="st-text">Rest briefly, then top with sesame seeds and green onion.</span><span class="timer">2 min</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>Medium heat — much cooler than the ribs, so cook it in a cooler zone or a separate window. Grilling before the meat also keeps it off any drippings.</p>
+      <p>Oil the grates well and leave the skin on; both prevent sticking. A foil sheet or cedar plank works too. It'll keep cooking as it rests.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+</main>
+
+<footer>
+  <div class="divider"></div>
+  Tap ingredients and step numbers to track your progress.<br>Checks reset when you reload the page.
+</footer>
+
+<script>
+  // Toggle done state on ingredients (whole row) and step numbers.
+  document.querySelectorAll('ul.ingredients > li').forEach(function(li){
+    li.setAttribute('tabindex','0');
+    li.setAttribute('role','checkbox');
+    li.setAttribute('aria-checked','false');
+    function toggle(){
+      var on = li.classList.toggle('done');
+      li.setAttribute('aria-checked', on ? 'true' : 'false');
+    }
+    li.addEventListener('click', toggle);
+    li.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  document.querySelectorAll('ol.steps .num').forEach(function(num){
+    var li = num.closest('li');
+    function toggle(){
+      var on = li.classList.toggle('done');
+      num.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    num.addEventListener('click', toggle);
+    num.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  // Per-recipe reset.
+  document.querySelectorAll('[data-reset]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.closest('.recipe').querySelectorAll('.done').forEach(function(el){
+        el.classList.remove('done');
+        el.setAttribute('aria-checked','false');
+      });
+    });
+  });
+
+  // Scrollspy: highlight the active jump chip.
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var targets = chips.map(function(c){ return document.querySelector(c.getAttribute('href')); });
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var i = targets.indexOf(en.target);
+        chips.forEach(function(c){ c.classList.remove('active'); });
+        if(i > -1){
+          chips[i].classList.add('active');
+          chips[i].scrollIntoView({block:'nearest', inline:'center'});
+        }
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+  targets.forEach(function(t){ if(t) spy.observe(t); });
+</script>
+</body>
+</html>
