@@ -169,6 +169,21 @@
   }
   .meta .v{font-weight:600;font-size:.9rem;}
 
+  /* servings toggle */
+  li.meta-servings{padding:.3rem .5rem .3rem .6rem;}
+  .servings-control{display:inline-flex;align-items:center;gap:.45rem;margin-top:.05rem;}
+  .sc-btn{
+    width:24px;height:24px;flex:none;border-radius:50%;border:1px solid #cdbfae;
+    background:#fff;color:var(--ink);font-family:var(--font-mono);font-weight:700;
+    font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;
+    padding:0;cursor:pointer;transition:background .12s,border-color .12s,color .12s,transform .12s;
+  }
+  .sc-btn:active{transform:scale(.88);}
+  .sc-btn:hover:not(:disabled){border-color:var(--ember);color:var(--ember);}
+  .sc-btn:disabled{opacity:.35;cursor:not-allowed;}
+  .sc-value{font-weight:700;font-size:.9rem;min-width:1.3em;text-align:center;}
+  .sc-scaled{color:var(--ember-deep);}
+
   .section-label{
     font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
     color:var(--ember-deep);margin:1.4rem 0 .6rem;display:flex;align-items:center;gap:.6rem;
@@ -357,7 +372,14 @@
     <p class="r-eyebrow"><span class="tick"></span>Main</p>
     <h2>Grilled BBQ Chicken Sandwiches</h2>
     <ul class="meta">
-      <li><span class="k">Makes</span><span class="v">8 sandwiches</span></li>
+      <li class="meta-servings">
+        <span class="k">Makes</span>
+        <span class="v servings-control" data-servings-control data-base="8" data-min="1" data-max="32">
+          <button type="button" class="sc-btn" data-step="-1" aria-label="Fewer sandwiches">−</button>
+          <span class="sc-value" data-servings-value aria-live="polite">8</span>
+          <button type="button" class="sc-btn" data-step="1" aria-label="More sandwiches">+</button>
+        </span>
+      </li>
       <li><span class="k">Season</span><span class="v">15–30 min</span></li>
       <li><span class="k">Grill</span><span class="v">400–450°F</span></li>
       <li><span class="k">Done at</span><span class="v">175°F</span></li>
@@ -365,15 +387,15 @@
 
     <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
     <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 kg</span> boneless skinless chicken thighs <span class="alt">(~3.3 lb, about 10–12 thighs)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 tsp</span> salt</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> black pepper</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 tsp</span> smoked paprika</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 tsp</span> garlic powder</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> neutral oil <span class="alt">(to coat before grilling)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 cups</span> BBQ sauce <span class="alt">(~360 ml, plus more to serve)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">8</span> brioche or potato buns</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> butter <span class="alt">(for toasting the buns)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1.5">1.5</span> kg</span> boneless skinless chicken thighs <span class="alt">(~<span class="qty" data-base="3.3">3.3</span> lb, about <span class="qty" data-base="10" data-round="1">10</span>–<span class="qty" data-base="12" data-round="1">12</span> thighs)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1.5">1.5</span> tsp</span> salt</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> tsp</span> black pepper</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> tsp</span> smoked paprika</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> tsp</span> garlic powder</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> neutral oil <span class="alt">(to coat before grilling)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1.5">1.5</span> cups</span> BBQ sauce <span class="alt">(~<span class="qty" data-base="360">360</span> ml, plus more to serve)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="8" data-round="1">8</span></span> brioche or potato buns</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> Tbsp</span> butter <span class="alt">(for toasting the buns)</span></span></li>
       <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> dill pickle slices <span class="alt">(optional)</span></span></li>
       <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> red onion, thinly sliced <span class="alt">(optional)</span></span></li>
       <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> coleslaw or shredded lettuce <span class="alt">(optional)</span></span></li>
@@ -424,7 +446,14 @@
     <p class="r-eyebrow"><span class="tick"></span>Main · 2× batch</p>
     <h2>Flanken Short Ribs (LA Galbi)</h2>
     <ul class="meta">
-      <li><span class="k">Serves</span><span class="v">7–8</span></li>
+      <li class="meta-servings">
+        <span class="k">Serves</span>
+        <span class="v servings-control" data-servings-control data-base="8" data-min="1" data-max="32">
+          <button type="button" class="sc-btn" data-step="-1" aria-label="Fewer servings">−</button>
+          <span class="sc-value" data-servings-value aria-live="polite">8</span>
+          <button type="button" class="sc-btn" data-step="1" aria-label="More servings">+</button>
+        </span>
+      </li>
       <li><span class="k">Marinate</span><span class="v">12–18 hr</span></li>
       <li><span class="k">Grill</span><span class="v">500–550°F</span></li>
       <li><span class="k">Active</span><span class="v">~15 min</span></li>
@@ -432,18 +461,18 @@
 
     <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
     <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">4 kg</span> flanken-cut short ribs <span class="alt">(~8.8 lb; buy ~9 lb to allow for trim)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">200 g</span> soy sauce <span class="alt">(~14 Tbsp / scant 1 cup)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">20 g</span> salt <span class="alt">(~3.5 tsp)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">6 g</span> black pepper <span class="alt">(~1 tsp)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">100 g</span> brown sugar <span class="alt">(~7 Tbsp packed)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">50 g</span> sesame oil <span class="alt">(~3.5 Tbsp)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">50 g</span> mirin <span class="alt">(~3 Tbsp)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">14</span> garlic cloves <span class="alt">(~60 g)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">20 g</span> ginger, sliced</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">200 g</span> onion, diced</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">100 g</span> kiwi, peeled &amp; chopped</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">300 g</span> Asian pear, peeled &amp; chopped</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="4">4</span> kg</span> flanken-cut short ribs <span class="alt">(~<span class="qty" data-base="8.8">8.8</span> lb; buy ~<span class="qty" data-base="9">9</span> lb to allow for trim)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="200">200</span> g</span> soy sauce <span class="alt">(~<span class="qty" data-base="14">14</span> Tbsp / scant 1 cup)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="20">20</span> g</span> salt <span class="alt">(~<span class="qty" data-base="3.5">3.5</span> tsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="6">6</span> g</span> black pepper <span class="alt">(~<span class="qty" data-base="1">1</span> tsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="100">100</span> g</span> brown sugar <span class="alt">(~<span class="qty" data-base="7">7</span> Tbsp packed)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="50">50</span> g</span> sesame oil <span class="alt">(~<span class="qty" data-base="3.5">3.5</span> Tbsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="50">50</span> g</span> mirin <span class="alt">(~<span class="qty" data-base="3">3</span> Tbsp)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="14" data-round="1">14</span></span> garlic cloves <span class="alt">(~<span class="qty" data-base="60">60</span> g)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="20">20</span> g</span> ginger, sliced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="200">200</span> g</span> onion, diced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="100">100</span> g</span> kiwi, peeled &amp; chopped</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="300">300</span> g</span> Asian pear, peeled &amp; chopped</span></li>
     </ul>
 
     <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
@@ -470,7 +499,14 @@
     <p class="r-eyebrow"><span class="tick"></span>Pescatarian main</p>
     <h2>Gochujang Grilled Salmon</h2>
     <ul class="meta">
-      <li><span class="k">Serves</span><span class="v">2–3</span></li>
+      <li class="meta-servings">
+        <span class="k">Serves</span>
+        <span class="v servings-control" data-servings-control data-base="3" data-min="1" data-max="12">
+          <button type="button" class="sc-btn" data-step="-1" aria-label="Fewer servings">−</button>
+          <span class="sc-value" data-servings-value aria-live="polite">3</span>
+          <button type="button" class="sc-btn" data-step="1" aria-label="More servings">+</button>
+        </span>
+      </li>
       <li><span class="k">Rest glaze</span><span class="v">~15 min</span></li>
       <li><span class="k">Heat</span><span class="v">Medium</span></li>
       <li><span class="k">Done at</span><span class="v">125–130°F</span></li>
@@ -478,17 +514,17 @@
 
     <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
     <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> skin-on salmon fillets <span class="alt">(~6 oz / 170 g each)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochujang <span class="alt">(Korean chili paste)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> honey</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> rice vinegar</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> garlic cloves, minced</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> ginger, grated</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">½ tsp</span> salt</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> toasted sesame seeds</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> green onions, sliced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="3" data-round="1">3</span></span> skin-on salmon fillets <span class="alt">(~6 oz / 170 g each)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> Tbsp</span> gochujang <span class="alt">(Korean chili paste)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> soy sauce</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> honey</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> sesame oil</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> rice vinegar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2" data-round="1">2</span></span> garlic cloves, minced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> tsp</span> ginger, grated</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="0.5">½</span> tsp</span> salt</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> tsp</span> toasted sesame seeds</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2" data-round="1">2</span></span> green onions, sliced</span></li>
     </ul>
 
     <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
@@ -514,15 +550,22 @@
     <p class="r-eyebrow"><span class="tick"></span>Side</p>
     <h2>Steamed Short-Grain Rice</h2>
     <ul class="meta">
-      <li><span class="k">Serves</span><span class="v">7</span></li>
+      <li class="meta-servings">
+        <span class="k">Serves</span>
+        <span class="v servings-control" data-servings-control data-base="7" data-min="1" data-max="28">
+          <button type="button" class="sc-btn" data-step="-1" aria-label="Fewer servings">−</button>
+          <span class="sc-value" data-servings-value aria-live="polite">7</span>
+          <button type="button" class="sc-btn" data-step="1" aria-label="More servings">+</button>
+        </span>
+      </li>
       <li><span class="k">Soak</span><span class="v">~30 min</span></li>
       <li><span class="k">Cook</span><span class="v">~15 min</span></li>
     </ul>
 
     <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
     <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">540 g</span> short-grain white rice <span class="alt">(~3 cups)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">650 ml</span> water <span class="alt">(for cooking, after rinsing)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="540">540</span> g</span> short-grain white rice <span class="alt">(~<span class="qty" data-base="3">3</span> cups)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="650">650</span> ml</span> water <span class="alt">(for cooking, after rinsing)</span></span></li>
     </ul>
 
     <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
@@ -546,23 +589,30 @@
     <p class="r-eyebrow"><span class="tick"></span>Side · no cook</p>
     <h2>Spicy Cucumber Salad (Oi Muchim)</h2>
     <ul class="meta">
-      <li><span class="k">Serves</span><span class="v">7</span></li>
+      <li class="meta-servings">
+        <span class="k">Serves</span>
+        <span class="v servings-control" data-servings-control data-base="7" data-min="1" data-max="28">
+          <button type="button" class="sc-btn" data-step="-1" aria-label="Fewer servings">−</button>
+          <span class="sc-value" data-servings-value aria-live="polite">7</span>
+          <button type="button" class="sc-btn" data-step="1" aria-label="More servings">+</button>
+        </span>
+      </li>
       <li><span class="k">Active</span><span class="v">~15 min</span></li>
       <li><span class="k">Heat</span><span class="v">Medium</span></li>
     </ul>
 
     <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
     <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">6</span> Persian cucumbers <span class="alt">(or 2 English)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> salt <span class="alt">(for pressing)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochugaru <span class="alt">(Korean red pepper flakes)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> garlic cloves, minced</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> rice vinegar</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sugar</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> toasted sesame seeds</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> green onions, sliced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="6" data-round="1">6</span></span> Persian cucumbers <span class="alt">(or 2 English)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> tsp</span> salt <span class="alt">(for pressing)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> Tbsp</span> gochugaru <span class="alt">(Korean red pepper flakes)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="3" data-round="1">3</span></span> garlic cloves, minced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="2">2</span> Tbsp</span> rice vinegar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> sugar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> soy sauce</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> sesame oil</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="1">1</span> Tbsp</span> toasted sesame seeds</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt"><span class="qty" data-base="3" data-round="1">3</span></span> green onions, sliced</span></li>
     </ul>
 
     <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
@@ -586,7 +636,7 @@
 
 <footer>
   <div class="divider"></div>
-  Tap ingredients and step numbers to track your progress.<br>Checks reset when you reload the page.
+  Tap ingredients and step numbers to track your progress. Use the +/− next to Serves or Makes to scale a recipe.<br>Checks reset when you reload the page.
 </footer>
 
 <script>
@@ -615,6 +665,64 @@
     num.addEventListener('keydown', function(e){
       if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
     });
+  });
+
+  // Format a scaled quantity for display: whole units round to the nearest
+  // integer (never below 1); continuous units keep up to 2 decimals and
+  // render a clean unicode fraction when the amount is under 1.
+  function formatQty(n, isWhole){
+    if(isWhole){ return String(Math.max(1, Math.round(n))); }
+    var rounded = Math.round(n * 100) / 100;
+    if(rounded <= 0) return '0';
+    var wholePart = Math.floor(rounded);
+    var frac = +(rounded - wholePart).toFixed(3);
+    if(wholePart === 0 && frac > 0){
+      var fracMap = [[0.125,'⅛'],[0.25,'¼'],[0.333,'⅓'],[0.375,'⅜'],[0.5,'½'],[0.625,'⅝'],[0.667,'⅔'],[0.75,'¾'],[0.875,'⅞']];
+      var best = null, bestDiff = 0.04;
+      fracMap.forEach(function(f){
+        var d = Math.abs(frac - f[0]);
+        if(d < bestDiff){ best = f; bestDiff = d; }
+      });
+      if(best) return best[1];
+    }
+    if(Number.isInteger(rounded)) return String(rounded);
+    return String(rounded);
+  }
+
+  // Servings toggle: scales every .qty amount within the recipe card.
+  document.querySelectorAll('[data-servings-control]').forEach(function(ctrl){
+    var base = parseFloat(ctrl.dataset.base);
+    var min = parseFloat(ctrl.dataset.min || '1');
+    var max = parseFloat(ctrl.dataset.max || String(base * 4));
+    var current = base;
+    var valueEl = ctrl.querySelector('[data-servings-value]');
+    var minusBtn = ctrl.querySelector('.sc-btn[data-step="-1"]');
+    var plusBtn = ctrl.querySelector('.sc-btn[data-step="1"]');
+    var recipe = ctrl.closest('.recipe');
+    var qtyEls = recipe ? recipe.querySelectorAll('.qty') : [];
+
+    function render(){
+      valueEl.textContent = formatQty(current, true);
+      minusBtn.disabled = current <= min;
+      plusBtn.disabled = current >= max;
+      var scaled = current !== base;
+      valueEl.classList.toggle('sc-scaled', scaled);
+      var scale = current / base;
+      qtyEls.forEach(function(q){
+        var b = parseFloat(q.dataset.base);
+        q.textContent = formatQty(b * scale, q.hasAttribute('data-round'));
+      });
+    }
+
+    function step(delta){
+      current = Math.min(max, Math.max(min, current + delta));
+      render();
+    }
+
+    minusBtn.addEventListener('click', function(){ step(-1); });
+    plusBtn.addEventListener('click', function(){ step(1); });
+
+    render();
   });
 
   // Per-recipe reset.
