@@ -263,6 +263,27 @@
     outline:2.5px solid var(--ember);outline-offset:2px;border-radius:6px;
   }
 
+  /* ---------- DAY HEADER + MENU GROUPS ---------- */
+  .day{margin:2.2rem .15rem .2rem;padding-top:1.4rem;border-top:2px solid var(--line);}
+  .day:first-of-type{border-top:none;padding-top:0;}
+  .day-eyebrow{
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ember-deep);margin:0 0 .3rem;
+  }
+  .day-title{
+    font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,9vw,3rem);
+    line-height:.9;letter-spacing:-.02em;margin:0;
+  }
+  .day-title .n{color:var(--ember);}
+  .day-dish{color:var(--ink-soft);margin:.4rem 0 0;font-size:.96rem;}
+  .menu-group{margin-top:1.1rem;}
+  .menu-group:first-of-type{margin-top:1.2rem;border-top:1px solid #40352f;padding-top:1.1rem;}
+  .menu-day{
+    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 .1rem;
+  }
+  .menu-group .menu{border-top:none;padding-top:.2rem;}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *{transition:none!important;}
@@ -281,34 +302,115 @@
   <div class="hero-inner">
     <p class="eyebrow">Weekend Cookout · Galbi Night</p>
     <h1>Korean&nbsp;BBQ<br><span class="flame">on the grill</span></h1>
-    <p class="lead">Four recipes, scaled for the crew. Tap any ingredient or step number to check it off as you go.</p>
-    <ul class="menu">
-      <li><span class="dot" style="background:var(--ember)"></span><span class="dish">Flanken Short Ribs (LA Galbi)</span><span class="role">Main · 7–8</span></li>
-      <li><span class="dot" style="background:var(--gold)"></span><span class="dish">Steamed Short-Grain Rice</span><span class="role">Side · 7</span></li>
-      <li><span class="dot" style="background:var(--scallion)"></span><span class="dish">Spicy Cucumber Salad</span><span class="role">Side · 7</span></li>
-      <li><span class="dot" style="background:#4a7fb0"></span><span class="dish">Gochujang Grilled Salmon</span><span class="role">Pescatarian · 2–3</span></li>
-    </ul>
+    <p class="lead">Five recipes, scaled for the crew. Tap any ingredient or step number to check it off as you go.</p>
+    <div class="menu-group">
+      <p class="menu-day">Friday · Backyard BBQ</p>
+      <ul class="menu">
+        <li><span class="dot" style="background:#9c5a22"></span><span class="dish">Grilled BBQ Chicken Sandwiches</span><span class="role">Main · 8</span></li>
+      </ul>
+    </div>
+    <div class="menu-group">
+      <p class="menu-day">Saturday · Korean BBQ</p>
+      <ul class="menu">
+        <li><span class="dot" style="background:var(--ember)"></span><span class="dish">Flanken Short Ribs (LA Galbi)</span><span class="role">Main · 7–8</span></li>
+        <li><span class="dot" style="background:#4a7fb0"></span><span class="dish">Gochujang Grilled Salmon</span><span class="role">Pescatarian · 2–3</span></li>
+        <li><span class="dot" style="background:var(--gold)"></span><span class="dish">Steamed Short-Grain Rice</span><span class="role">Side · 7</span></li>
+        <li><span class="dot" style="background:var(--scallion)"></span><span class="dish">Spicy Cucumber Salad</span><span class="role">Side · 7</span></li>
+      </ul>
+    </div>
   </div>
 </header>
 
 <nav aria-label="Jump to recipe">
   <div class="nav-scroll">
-    <a class="chip" href="#plan">Game plan</a>
+    <a class="chip" href="#friday">Friday</a>
+    <a class="chip" href="#chicken">Chicken</a>
+    <a class="chip" href="#saturday">Saturday</a>
     <a class="chip" href="#ribs">Short ribs</a>
+    <a class="chip" href="#salmon">Salmon</a>
     <a class="chip" href="#rice">Rice</a>
     <a class="chip" href="#salad">Cucumber salad</a>
-    <a class="chip" href="#salmon">Salmon</a>
   </div>
 </nav>
 
 <main>
 
-  <!-- GAME PLAN -->
-  <section class="plan" id="plan">
-    <h2>Game plan</h2>
+  <!-- FRIDAY -->
+  <section class="day" id="friday">
+    <p class="day-eyebrow">Night one · Backyard BBQ</p>
+    <h2 class="day-title"><span class="n">Friday</span></h2>
+    <p class="day-dish">Grilled BBQ chicken sandwiches</p>
+  </section>
+
+  <section class="plan">
+    <h2>Friday game plan</h2>
+    <p class="sub">A relaxed one — the sandwiches are the whole show.</p>
+    <ul class="timeline">
+      <li><span class="when">Up to a day ahead</span><span class="what">Season the <b>chicken thighs</b> and keep them chilled, or season 15–30 min before grilling.</span></li>
+      <li><span class="when">Grill time</span><span class="what">Grill the thighs at 400–450°F, saucing only in the last few minutes. Toast the buns while the chicken rests, then build.</span></li>
+      <li><span class="when">Before bed</span><span class="what">Get the <b>short ribs marinating</b> for tomorrow — this is the 12–18 hr window. Don't go past 18.</span></li>
+    </ul>
+  </section>
+
+  <!-- BBQ CHICKEN SANDWICHES -->
+  <section class="recipe" id="chicken">
+    <p class="r-eyebrow"><span class="tick"></span>Main</p>
+    <h2>Grilled BBQ Chicken Sandwiches</h2>
+    <ul class="meta">
+      <li><span class="k">Makes</span><span class="v">8 sandwiches</span></li>
+      <li><span class="k">Season</span><span class="v">15–30 min</span></li>
+      <li><span class="k">Grill</span><span class="v">400–450°F</span></li>
+      <li><span class="k">Done at</span><span class="v">175°F</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 kg</span> boneless skinless chicken thighs <span class="alt">(~3.3 lb, about 10–12 thighs)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 tsp</span> salt</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> black pepper</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 tsp</span> smoked paprika</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 tsp</span> garlic powder</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> neutral oil <span class="alt">(to coat before grilling)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1.5 cups</span> BBQ sauce <span class="alt">(~360 ml, plus more to serve)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">8</span> brioche or potato buns</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> butter <span class="alt">(for toasting the buns)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> dill pickle slices <span class="alt">(optional)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> red onion, thinly sliced <span class="alt">(optional)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">—</span> coleslaw or shredded lettuce <span class="alt">(optional)</span></span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Season the chicken</span><span class="st-text">Pat the thighs dry, rub with the oil, then season all over with the salt, pepper, smoked paprika, and garlic powder. Let sit.</span><span class="timer">15–30 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Preheat</span><span class="st-text">Heat the grill to 400–450°F (medium-high) and oil the grates.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Grill</span><span class="st-text">Grill the thighs until charred and cooked through, flipping once.</span><span class="timer">~4–5 min / side</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Sauce</span><span class="st-text">In the last few minutes, brush both sides with BBQ sauce and let it caramelize — slide to a cooler zone if it flares. Pull at 175°F internal.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest</span><span class="st-text">Let the chicken rest so the juices settle.</span><span class="timer">5 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Toast the buns</span><span class="st-text">Butter the cut sides and toast on the grill until golden.</span><span class="timer">~1 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Build</span><span class="st-text">Spread sauce on the bun, add chicken and a little more sauce, then pickles, onion, and slaw. Top and serve.</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>Thighs stay juicy and forgiving on the grill. Using breasts instead? Pound them to even thickness and pull earlier, at 160–165°F.</p>
+      <p>BBQ sauce is mostly sugar and burns fast — only sauce in the final few minutes, and keep a cooler zone to slide to if it flares up.</p>
+      <p><b>Quick sauce (optional):</b> simmer ½ cup ketchup, 2 Tbsp brown sugar, 1 Tbsp cider vinegar, 1 tsp Worcestershire, ½ tsp smoked paprika, and a pinch of garlic powder for a few minutes.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+  <!-- SATURDAY -->
+  <section class="day" id="saturday">
+    <p class="day-eyebrow">Night two · Korean BBQ</p>
+    <h2 class="day-title"><span class="n">Saturday</span></h2>
+    <p class="day-dish">Flanken short ribs, gochujang salmon, rice &amp; cucumber salad</p>
+  </section>
+
+  <section class="plan">
+    <h2>Saturday game plan</h2>
     <p class="sub">The order that keeps the grill and the timing sane.</p>
     <ul class="timeline">
-      <li><span class="when">Night before</span><span class="what">Blend the rib marinade and <b>get the ribs marinating</b> — 12–18 hrs. Don't go past 18 (the kiwi turns the surface mushy).</span></li>
+      <li><span class="when">Ribs already marinating</span><span class="what">Started Friday night — pull them from the fridge before you fire up the grill.</span></li>
       <li><span class="when">~2 hrs before</span><span class="what">Make the <b>cucumber salad</b> and chill. For max crunch, keep the pressed cucumbers and dressing separate and toss right before serving.</span></li>
       <li><span class="when">~1 hr before</span><span class="what">Rinse and soak the <b>rice</b>, then cook it so it can rest covered and hold while you grill.</span></li>
       <li><span class="when">Grill warming up</span><span class="what">While the grill is still at medium, cook the <b>salmon first</b> and hold it under foil. Doing it early keeps the fish off the meat drippings.</span></li>
@@ -359,6 +461,50 @@
       <span class="nlabel">Notes</span>
       <p>Grill in shifts — don't crowd the grates or the ribs steam instead of char. Hold finished batches loosely tented under foil.</p>
       <p>Nearly 9 lb won't fit at once on most home grills; plan two or three rounds.</p>
+    </div>
+    <button class="reset" data-reset>Clear checks in this recipe</button>
+  </section>
+
+  <!-- SALMON -->
+  <section class="recipe" id="salmon">
+    <p class="r-eyebrow"><span class="tick"></span>Pescatarian main</p>
+    <h2>Gochujang Grilled Salmon</h2>
+    <ul class="meta">
+      <li><span class="k">Serves</span><span class="v">2–3</span></li>
+      <li><span class="k">Rest glaze</span><span class="v">~15 min</span></li>
+      <li><span class="k">Heat</span><span class="v">Medium</span></li>
+      <li><span class="k">Done at</span><span class="v">125–130°F</span></li>
+    </ul>
+
+    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
+    <ul class="ingredients">
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> skin-on salmon fillets <span class="alt">(~6 oz / 170 g each)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochujang <span class="alt">(Korean chili paste)</span></span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> honey</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> rice vinegar</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> garlic cloves, minced</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> ginger, grated</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">½ tsp</span> salt</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> toasted sesame seeds</span></li>
+      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> green onions, sliced</span></li>
+    </ul>
+
+    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
+    <ol class="steps">
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Prep the salmon</span><span class="st-text">Pat dry and season the flesh side lightly with the salt. Dry fish releases more cleanly.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Mix the glaze</span><span class="st-text">Whisk the gochujang, soy, honey, sesame oil, vinegar, garlic, and ginger. Set aside half for finishing.</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Glaze &amp; rest</span><span class="st-text">Brush the flesh side with half the glaze; let it sit while the grill comes to medium.</span><span class="timer">15 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Grill skin-side down</span><span class="st-text">Oil the grates. Place skin-side down over medium heat, lid closed, until the skin crisps and the fish releases.</span><span class="timer">~5 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Flip &amp; finish</span><span class="st-text">Flip carefully, brush with the reserved glaze, and grill until just opaque in the center (125–130°F).</span><span class="timer">~3 min</span></span></li>
+      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest &amp; serve</span><span class="st-text">Rest briefly, then top with sesame seeds and green onion.</span><span class="timer">2 min</span></span></li>
+    </ol>
+
+    <div class="notes">
+      <span class="nlabel">Notes</span>
+      <p>Medium heat — much cooler than the ribs, so cook it in a cooler zone or a separate window. Grilling before the meat also keeps it off any drippings.</p>
+      <p>Oil the grates well and leave the skin on; both prevent sticking. A foil sheet or cedar plank works too. It'll keep cooking as it rests.</p>
     </div>
     <button class="reset" data-reset>Clear checks in this recipe</button>
   </section>
@@ -432,50 +578,6 @@
       <span class="nlabel">Notes</span>
       <p>2 Tbsp gochugaru is medium heat — adjust to taste.</p>
       <p>Best within an hour or two; it softens as it sits. For maximum crunch, keep the cucumbers and dressing separate and toss just before serving.</p>
-    </div>
-    <button class="reset" data-reset>Clear checks in this recipe</button>
-  </section>
-
-  <!-- SALMON -->
-  <section class="recipe" id="salmon">
-    <p class="r-eyebrow"><span class="tick"></span>Pescatarian main</p>
-    <h2>Gochujang Grilled Salmon</h2>
-    <ul class="meta">
-      <li><span class="k">Serves</span><span class="v">2–3</span></li>
-      <li><span class="k">Rest glaze</span><span class="v">~15 min</span></li>
-      <li><span class="k">Heat</span><span class="v">Medium</span></li>
-      <li><span class="k">Done at</span><span class="v">125–130°F</span></li>
-    </ul>
-
-    <p class="section-label">Ingredients <span class="hint">— tap to check</span></p>
-    <ul class="ingredients">
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">3</span> skin-on salmon fillets <span class="alt">(~6 oz / 170 g each)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2 Tbsp</span> gochujang <span class="alt">(Korean chili paste)</span></span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> soy sauce</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> honey</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> sesame oil</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 Tbsp</span> rice vinegar</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> garlic cloves, minced</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> ginger, grated</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">½ tsp</span> salt</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">1 tsp</span> toasted sesame seeds</span></li>
-      <li><span class="check"></span><span class="ing-txt"><span class="amt">2</span> green onions, sliced</span></li>
-    </ul>
-
-    <p class="section-label">Steps <span class="hint">— tap number when done</span></p>
-    <ol class="steps">
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Prep the salmon</span><span class="st-text">Pat dry and season the flesh side lightly with the salt. Dry fish releases more cleanly.</span></span></li>
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Mix the glaze</span><span class="st-text">Whisk the gochujang, soy, honey, sesame oil, vinegar, garlic, and ginger. Set aside half for finishing.</span></span></li>
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Glaze &amp; rest</span><span class="st-text">Brush the flesh side with half the glaze; let it sit while the grill comes to medium.</span><span class="timer">15 min</span></span></li>
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Grill skin-side down</span><span class="st-text">Oil the grates. Place skin-side down over medium heat, lid closed, until the skin crisps and the fish releases.</span><span class="timer">~5 min</span></span></li>
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Flip &amp; finish</span><span class="st-text">Flip carefully, brush with the reserved glaze, and grill until just opaque in the center (125–130°F).</span><span class="timer">~3 min</span></span></li>
-      <li><span class="num" role="button" tabindex="0" aria-label="Toggle step"></span><span class="step-body"><span class="st-title">Rest &amp; serve</span><span class="st-text">Rest briefly, then top with sesame seeds and green onion.</span><span class="timer">2 min</span></span></li>
-    </ol>
-
-    <div class="notes">
-      <span class="nlabel">Notes</span>
-      <p>Medium heat — much cooler than the ribs, so cook it in a cooler zone or a separate window. Grilling before the meat also keeps it off any drippings.</p>
-      <p>Oil the grates well and leave the skin on; both prevent sticking. A foil sheet or cedar plank works too. It'll keep cooking as it rests.</p>
     </div>
     <button class="reset" data-reset>Clear checks in this recipe</button>
   </section>
