@@ -251,9 +251,22 @@
     el.classList.toggle('err', !!isErr);
   }
 
+  function statusMessage(action, status){
+    if(status === 429) return action + ' failed — the shared list service is briefly rate-limiting us. Wait about a minute and try again.';
+    if(status === 404) return action + ' failed — the shared list wasn’t found (it may have expired or the ID is wrong).';
+    if(status >= 500) return action + ' failed — the shared list service is having trouble. Try again shortly.';
+    return action + ' failed (' + status + ').';
+  }
+
+  function apiError(action, status){
+    var e = new Error(statusMessage(action, status));
+    e.status = status;
+    return e;
+  }
+
   function apiGet(id){
     return fetch(API_BASE + id, { headers: { 'Accept': 'application/json' } })
-      .then(function(r){ if(!r.ok) throw new Error('load failed (' + r.status + ')'); return r.json(); });
+      .then(function(r){ if(!r.ok) throw apiError('Loading the list', r.status); return r.json(); });
   }
 
   function apiCreate(data){
@@ -262,7 +275,7 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
     }).then(function(r){
-      if(!r.ok) throw new Error('create failed (' + r.status + ')');
+      if(!r.ok) throw apiError('Creating the list', r.status);
       var loc = r.headers.get('Location') || '';
       var id = loc.split('/').filter(Boolean).pop();
       return { id: id, data: data };
@@ -274,7 +287,7 @@
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
-    }).then(function(r){ if(!r.ok) throw new Error('save failed (' + r.status + ')'); return data; });
+    }).then(function(r){ if(!r.ok) throw apiError('Saving', r.status); return data; });
   }
 
   function render(){
