@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#221c19">
+<title>Shangri-La — Food Sign-Up</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f3ee;
+    --ink:#1c1714;
+    --ink-soft:#5c5149;
+    --ember:#bf3410;
+    --ember-deep:#972608;
+    --gold:#b9791a;
+    --scallion:#3f6b3a;
+    --char:#221c19;
+    --char-soft:#3a312c;
+    --line:#e5dccf;
+    --card:#ffffff;
+    --font-display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --font-body:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --wrap:700px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;touch-action:manipulation;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);
+    font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;padding-bottom:env(safe-area-inset-bottom);
+    touch-action:manipulation;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--char);color:var(--paper);padding:calc(2.4rem + env(safe-area-inset-top)) 1.25rem 1.9rem;position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--ember-deep),var(--ember),var(--gold),var(--ember));}
+  .hero-inner{max-width:var(--wrap);margin:0 auto;}
+  .eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:0 0 .7rem;}
+  h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2.1rem,9vw,3.2rem);line-height:1;letter-spacing:-.02em;margin:0 0 .6rem;}
+  h1 .flame{color:var(--ember);}
+  .hero p.lead{margin:0 0 1.3rem;color:#d9cdc0;font-size:1rem;max-width:44ch;}
+  .torch-stat{
+    display:inline-flex;align-items:center;gap:.55rem;background:#00000030;border:1px solid #40352f;
+    border-radius:999px;padding:.5rem .9rem .5rem .7rem;font-family:var(--font-mono);font-size:.78rem;
+    letter-spacing:.02em;color:#f0e6da;
+  }
+  .torch-stat b{color:#fff;font-family:var(--font-display);font-size:.95rem;}
+  .torch-emoji{font-size:1.1rem;}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(247,243,238,.92);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);}
+  .nav-scroll{max-width:var(--wrap);margin:0 auto;display:flex;gap:.4rem;overflow-x:auto;padding:.6rem 1rem;scrollbar-width:none;align-items:center;}
+  .nav-scroll::-webkit-scrollbar{display:none;}
+  .chip{flex:none;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--card);transition:background .15s,color .15s,border-color .15s;white-space:nowrap;}
+  .chip:active{transform:scale(.96);}
+  .refresh-btn{
+    margin-left:auto;flex:none;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;
+    color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:999px;
+    padding:.5rem .75rem;cursor:pointer;display:flex;align-items:center;gap:.35rem;
+  }
+  .refresh-btn:active{transform:scale(.94);}
+  .refresh-btn .spin{display:inline-block;transition:transform .5s ease;}
+  .refresh-btn.loading .spin{animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  main{max-width:var(--wrap);margin:0 auto;padding:0 1rem 4rem;}
+
+  /* ---------- SETUP BANNER ---------- */
+  .setup{
+    margin:1.4rem 0;background:#fbf3ef;border:1px solid #f1d9cf;border-left:4px solid var(--ember);
+    border-radius:12px;padding:1.1rem 1.2rem 1.3rem;
+  }
+  .setup h2{font-family:var(--font-display);font-size:1.15rem;margin:0 0 .4rem;}
+  .setup p{margin:.4rem 0;font-size:.92rem;color:#4b3b34;}
+  .setup code{
+    display:block;background:#221c19;color:#f0e6da;font-family:var(--font-mono);font-size:.8rem;
+    padding:.7rem .8rem;border-radius:8px;margin:.6rem 0;word-break:break-all;
+  }
+  .setup .btnrow{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.7rem;}
+  .btn{
+    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.03em;font-weight:700;
+    background:var(--ember);color:#fff;border:none;border-radius:8px;padding:.65rem 1rem;
+    cursor:pointer;transition:background .15s,transform .12s;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn:hover{background:var(--ember-deep);}
+  .btn.ghost{background:none;color:var(--ink-soft);border:1px solid var(--line);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .status-line{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft);margin:1.1rem 0 0;text-align:center;}
+  .status-line.err{color:var(--ember-deep);}
+
+  /* ---------- MEAL CARD ---------- */
+  .meal{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.3rem 1.15rem 1.4rem;margin:1.2rem 0;scroll-margin-top:4.2rem;}
+  .meal-head{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.9rem;}
+  .meal-emoji{font-size:1.8rem;line-height:1;flex:none;margin-top:.05rem;}
+  .meal-title-wrap{flex:1;min-width:0;}
+  .meal h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,5.5vw,1.6rem);line-height:1.1;letter-spacing:-.01em;margin:0;}
+  .meal-note{color:var(--ink-soft);font-size:.86rem;margin:.15rem 0 0;}
+  .meal-count{
+    flex:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.05em;color:var(--ink-soft);
+    background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.3rem .6rem;
+    white-space:nowrap;margin-top:.1rem;
+  }
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.1rem;}
+  @media (max-width:480px){.cols{grid-template-columns:1fr;}}
+  .col-label{
+    font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ember-deep);margin:0 0 .5rem;display:flex;align-items:center;gap:.4rem;
+  }
+  .col-label.side{color:var(--scallion);}
+  .dish-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.4rem;min-height:2.6rem;}
+  .dish-item{
+    display:flex;align-items:flex-start;gap:.5rem;background:var(--paper);border:1px solid var(--line);
+    border-radius:10px;padding:.55rem .6rem;
+  }
+  .dish-item.pop{animation:pop .38s cubic-bezier(.2,1.4,.4,1);}
+  @keyframes pop{0%{transform:scale(.7);opacity:0;}60%{transform:scale(1.04);opacity:1;}100%{transform:scale(1);}}
+  .dish-body{flex:1;min-width:0;}
+  .dish-name{font-weight:700;font-size:.85rem;display:block;}
+  .dish-desc{color:var(--ink-soft);font-size:.85rem;word-break:break-word;}
+  .dish-remove{
+    flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);background:#fff;
+    color:var(--ink-soft);font-size:.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;padding:0;transition:background .12s,color .12s,border-color .12s;
+  }
+  .dish-remove:hover{background:var(--ember);border-color:var(--ember);color:#fff;}
+  .empty-slot{
+    font-size:.83rem;color:var(--ink-soft);font-style:italic;border:1px dashed var(--line);
+    border-radius:10px;padding:.6rem .65rem;
+  }
+
+  .add-form{
+    display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;border-top:1px solid var(--line);
+    padding-top:1rem;position:relative;
+  }
+  .add-form select, .add-form input[type=text]{
+    font-family:var(--font-body);font-size:.88rem;padding:.55rem .65rem;border-radius:9px;
+    border:1px solid #cdbfae;background:#fff;color:var(--ink);min-width:0;
+  }
+  .add-form select{flex:0 0 auto;max-width:9.5rem;}
+  .add-form input[type=text]{flex:1 1 12rem;}
+  .kind-toggle{display:flex;gap:.3rem;flex:none;}
+  .kind-btn{
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:.55rem .7rem;border-radius:9px;border:1px solid #cdbfae;background:#fff;color:var(--ink-soft);
+    cursor:pointer;transition:background .12s,border-color .12s,color .12s;
+  }
+  .kind-btn[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff;}
+  .add-form .btn{flex:none;}
+  .form-hint{width:100%;font-size:.76rem;color:var(--ink-soft);margin-top:.1rem;min-height:1em;}
+  .form-hint.err{color:var(--ember-deep);}
+
+  .burst{position:absolute;pointer-events:none;font-size:1.1rem;animation:burst .8s ease-out forwards;}
+  @keyframes burst{0%{transform:translate(0,0) scale(.6);opacity:1;}100%{transform:translate(var(--bx),var(--by)) scale(1.3);opacity:0;}}
+
+  footer{text-align:center;color:var(--ink-soft);font-size:.8rem;padding:2rem 1rem 2.5rem;}
+  footer .divider{width:40px;height:2px;background:var(--ember);margin:0 auto 1rem;}
+  footer .admin-link{display:inline-block;margin-top:.6rem;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer;background:none;border:none;font:inherit;font-size:.75rem;font-family:var(--font-mono);}
+
+  a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2.5px solid var(--ember);outline-offset:2px;border-radius:6px;}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Weekend Cookout · Potluck Board</p>
+    <h1>Bring&nbsp;something<br><span class="flame">to Shangri-La</span></h1>
+    <p class="lead">Five meals, one shared list. Claim a main or a side so we don't end up with nine bags of chips and no plates.</p>
+    <span class="torch-stat"><span class="torch-emoji">🔥</span> <b id="torchCount">–</b> of 5 meals have a main covered</span>
+  </div>
+</header>
+
+<nav aria-label="Jump to meal">
+  <div class="nav-scroll">
+    <a class="chip" href="#fri-dinner">Fri dinner</a>
+    <a class="chip" href="#sat-breakfast">Sat breakfast</a>
+    <a class="chip" href="#sat-lunch">Sat lunch</a>
+    <a class="chip" href="#sat-dinner">Sat dinner</a>
+    <a class="chip" href="#sun-breakfast">Sun breakfast</a>
+    <button class="refresh-btn" id="refreshBtn" type="button"><span class="spin">↻</span> Refresh</button>
+  </div>
+</nav>
+
+<main>
+
+  <section class="setup" id="setupPanel" hidden>
+    <h2>One-time setup</h2>
+    <p>This board needs a shared list to write to before it can sync everyone's picks. Tap below to create one — it only needs to happen once, ever.</p>
+    <div class="btnrow">
+      <button class="btn" id="createListBtn" type="button">Create the shared list</button>
+    </div>
+    <div id="setupResult"></div>
+  </section>
+
+  <div id="mealsRoot"></div>
+
+  <p class="status-line" id="statusLine">Loading the board…</p>
+
+</main>
+
+<footer>
+  <div class="divider"></div>
+  Everyone sees the same list — it updates as people sign up.<br>
+  <button class="admin-link" id="adminLink" type="button">Reconnect / start a new list</button>
+</footer>
+
+<script>
+(function(){
+  var NAMES = ['Dusty','Carl','Erik','Paul','Benedict','Mark','Sean','Brandon'];
+
+  var SLOTS = [
+    {id:'fri-dinner',    label:'Friday Dinner',    emoji:'🌆', note:'Kicks off the weekend'},
+    {id:'sat-breakfast', label:'Saturday Breakfast',emoji:'🥞', note:'Fuel for the day'},
+    {id:'sat-lunch',     label:'Saturday Lunch',    emoji:'🥪', note:'Something easy, midday'},
+    {id:'sat-dinner',    label:'Saturday Dinner',   emoji:'🔥', note:'The big one'},
+    {id:'sun-breakfast', label:'Sunday Breakfast',  emoji:'🍳', note:'Last meal, make it count'}
+  ];
+
+  var EMPTY_MAIN = ["Nobody's claimed a main yet — glory awaits.", "This spot is wide open. No pressure.", "Mains: still zero. Bold strategy."];
+  var EMPTY_SIDE = ['No sides yet — chips don’t count (they still count).', 'Somebody bring something green. Or don’t.', 'Wide open. Dips welcome.'];
+
+  var API_BASE = 'https://jsonblob.com/api/jsonBlob/';
+  var LS_KEY = 'shangrila-food-signup-blob-id';
+
+  // ---- fill in the ID from the one-time setup panel to lock this in for everyone ----
+  var CONFIG_BLOB_ID = '';
+
+  var state = { blobId: CONFIG_BLOB_ID || localStorage.getItem(LS_KEY) || '', data: null, loading: false };
+
+  function emptyData(){
+    var d = {};
+    SLOTS.forEach(function(s){ d[s.id] = []; });
+    return d;
+  }
+
+  function uid(){
+    return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(16).slice(2));
+  }
+
+  function setStatus(msg, isErr){
+    var el = document.getElementById('statusLine');
+    el.textContent = msg;
+    el.classList.toggle('err', !!isErr);
+  }
+
+  function apiGet(id){
+    return fetch(API_BASE + id, { headers: { 'Accept': 'application/json' } })
+      .then(function(r){ if(!r.ok) throw new Error('load failed (' + r.status + ')'); return r.json(); });
+  }
+
+  function apiCreate(data){
+    return fetch(API_BASE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r){
+      if(!r.ok) throw new Error('create failed (' + r.status + ')');
+      var loc = r.headers.get('Location') || '';
+      var id = loc.split('/').filter(Boolean).pop();
+      return { id: id, data: data };
+    });
+  }
+
+  function apiSave(id, data){
+    return fetch(API_BASE + id, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r){ if(!r.ok) throw new Error('save failed (' + r.status + ')'); return data; });
+  }
+
+  function render(){
+    var root = document.getElementById('mealsRoot');
+    root.innerHTML = '';
+    var mainsCovered = 0;
+
+    SLOTS.forEach(function(slot){
+      var entries = (state.data && state.data[slot.id]) || [];
+      var mains = entries.filter(function(e){ return e.kind === 'main'; });
+      var sides = entries.filter(function(e){ return e.kind === 'side'; });
+      if(mains.length) mainsCovered++;
+
+      var section = document.createElement('section');
+      section.className = 'meal';
+      section.id = slot.id;
+
+      section.innerHTML =
+        '<div class="meal-head">' +
+          '<span class="meal-emoji">' + slot.emoji + '</span>' +
+          '<div class="meal-title-wrap"><h2>' + slot.label + '</h2><p class="meal-note">' + slot.note + '</p></div>' +
+          '<span class="meal-count">' + mains.length + ' main' + (mains.length===1?'':'s') + ' · ' + sides.length + ' side' + (sides.length===1?'':'s') + '</span>' +
+        '</div>' +
+        '<div class="cols">' +
+          '<div>' +
+            '<p class="col-label">Main</p>' +
+            '<ul class="dish-list" data-list="' + slot.id + '" data-kind="main"></ul>' +
+          '</div>' +
+          '<div>' +
+            '<p class="col-label side">Side</p>' +
+            '<ul class="dish-list" data-list="' + slot.id + '" data-kind="side"></ul>' +
+          '</div>' +
+        '</div>' +
+        '<form class="add-form" data-slot="' + slot.id + '">' +
+          '<select data-field="name" required>' +
+            '<option value="" disabled selected>Who’s this?</option>' +
+            NAMES.map(function(n){ return '<option value="' + n + '">' + n + '</option>'; }).join('') +
+          '</select>' +
+          '<div class="kind-toggle" data-field="kind">' +
+            '<button type="button" class="kind-btn" data-kind="main" aria-pressed="false">Main</button>' +
+            '<button type="button" class="kind-btn" data-kind="side" aria-pressed="false">Side</button>' +
+          '</div>' +
+          '<input type="text" data-field="desc" placeholder="What are you bringing?" maxlength="80" required>' +
+          '<button class="btn" type="submit">Bring it 🔥</button>' +
+          '<span class="form-hint"></span>' +
+        '</form>';
+
+      fillList(section.querySelector('[data-kind="main"]'), mains, slot.id, EMPTY_MAIN);
+      fillList(section.querySelector('[data-kind="side"]'), sides, slot.id, EMPTY_SIDE);
+
+      root.appendChild(section);
+    });
+
+    document.getElementById('torchCount').textContent = mainsCovered;
+    wireForms();
+    wireDeletes();
+  }
+
+  function fillList(ul, entries, slotId, emptyPhrases){
+    if(!entries.length){
+      var li = document.createElement('li');
+      li.className = 'empty-slot';
+      var idx = (slotId.length + ul.dataset.kind.length) % emptyPhrases.length;
+      li.textContent = emptyPhrases[idx];
+      ul.appendChild(li);
+      return;
+    }
+    entries.forEach(function(e){
+      var li = document.createElement('li');
+      li.className = 'dish-item';
+      if(e.justAdded){ li.classList.add('pop'); delete e.justAdded; }
+      li.innerHTML =
+        '<span class="dish-body"><span class="dish-name">' + escapeHtml(e.name) + '</span>' +
+        '<span class="dish-desc">' + escapeHtml(e.desc) + '</span></span>' +
+        '<button class="dish-remove" type="button" data-remove="' + e.id + '" data-slot="' + slotId + '" title="Remove ' + escapeHtml(e.name) + '’s dish">×</button>';
+      ul.appendChild(li);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  function wireForms(){
+    document.querySelectorAll('.add-form').forEach(function(form){
+      var kindButtons = form.querySelectorAll('.kind-btn');
+      kindButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          kindButtons.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        });
+      });
+
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var hint = form.querySelector('.form-hint');
+        var name = form.querySelector('[data-field="name"]').value;
+        var desc = form.querySelector('[data-field="desc"]').value.trim();
+        var kindBtn = form.querySelector('.kind-btn[aria-pressed="true"]');
+        hint.classList.remove('err');
+
+        if(!name){ hint.textContent = 'Pick who you are.'; hint.classList.add('err'); return; }
+        if(!kindBtn){ hint.textContent = 'Choose Main or Side.'; hint.classList.add('err'); return; }
+        if(!desc){ hint.textContent = 'Say what you’re bringing.'; hint.classList.add('err'); return; }
+
+        var slotId = form.dataset.slot;
+        var entry = { id: uid(), name: name, kind: kindBtn.dataset.kind, desc: desc, ts: Date.now(), justAdded: true };
+        hint.textContent = '';
+        addEntry(slotId, entry, form);
+      });
+    });
+  }
+
+  function wireDeletes(){
+    document.querySelectorAll('[data-remove]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        removeEntry(btn.dataset.slot, btn.dataset.remove);
+      });
+    });
+  }
+
+  function burstAt(form){
+    var emojis = ['🎉','🔥','🍖','✨'];
+    var rect = form.getBoundingClientRect();
+    for(var i=0;i<4;i++){
+      var s = document.createElement('span');
+      s.className = 'burst';
+      s.textContent = emojis[i % emojis.length];
+      s.style.left = (rect.width * 0.5) + 'px';
+      s.style.top = '-4px';
+      s.style.setProperty('--bx', (Math.random()*80-40) + 'px');
+      s.style.setProperty('--by', (-40 - Math.random()*30) + 'px');
+      form.appendChild(s);
+      (function(el){ setTimeout(function(){ el.remove(); }, 850); })(s);
+    }
+  }
+
+  function withFreshData(fn){
+    return apiGet(state.blobId).then(function(fresh){
+      state.data = fresh;
+      return fn();
+    });
+  }
+
+  function addEntry(slotId, entry, form){
+    setBusy(form, true);
+    withFreshData(function(){
+      if(!state.data[slotId]) state.data[slotId] = [];
+      state.data[slotId].push(entry);
+      return apiSave(state.blobId, state.data);
+    }).then(function(){
+      render();
+      var newForm = document.querySelector('.add-form[data-slot="' + slotId + '"]');
+      if(newForm) burstAt(newForm);
+      setStatus('Saved. Everyone will see it on refresh.');
+    }).catch(function(err){
+      setStatus('Couldn’t save that — ' + err.message, true);
+      setBusy(form, false);
+    });
+  }
+
+  function removeEntry(slotId, entryId){
+    withFreshData(function(){
+      state.data[slotId] = (state.data[slotId] || []).filter(function(e){ return e.id !== entryId; });
+      return apiSave(state.blobId, state.data);
+    }).then(function(){
+      render();
+      setStatus('Removed.');
+    }).catch(function(err){
+      setStatus('Couldn’t remove that — ' + err.message, true);
+    });
+  }
+
+  function setBusy(form, busy){
+    form.querySelectorAll('button, select, input').forEach(function(el){ el.disabled = busy; });
+  }
+
+  function loadAndRender(){
+    if(!state.blobId){
+      showSetup();
+      setStatus('No shared list configured yet.');
+      return;
+    }
+    setStatus('Loading the board…');
+    apiGet(state.blobId).then(function(data){
+      state.data = data;
+      hideSetup();
+      render();
+      setStatus('Up to date · last checked ' + new Date().toLocaleTimeString());
+    }).catch(function(err){
+      setStatus('Couldn’t reach the shared list — ' + err.message, true);
+    });
+  }
+
+  function showSetup(){ document.getElementById('setupPanel').hidden = false; document.getElementById('mealsRoot').innerHTML = ''; }
+  function hideSetup(){ document.getElementById('setupPanel').hidden = true; }
+
+  document.getElementById('createListBtn').addEventListener('click', function(){
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Creating…';
+    apiCreate(emptyData()).then(function(res){
+      state.blobId = res.id;
+      state.data = res.data;
+      localStorage.setItem(LS_KEY, res.id);
+      document.getElementById('setupResult').innerHTML =
+        '<p><b>List created.</b> To make this permanent for everyone, put this ID into <code>food-signup.html</code>:</p>' +
+        '<code>var CONFIG_BLOB_ID = \'' + res.id + '\';</code>' +
+        '<p>Until that’s saved and pushed, this browser will keep working on its own.</p>' +
+        '<div class="btnrow"><button class="btn ghost" type="button" id="continueBtn">Continue to the board</button></div>';
+      document.getElementById('continueBtn').addEventListener('click', function(){
+        hideSetup();
+        render();
+        setStatus('Up to date.');
+      });
+    }).catch(function(err){
+      btn.disabled = false;
+      btn.textContent = 'Create the shared list';
+      document.getElementById('setupResult').innerHTML = '<p class="form-hint err">Couldn’t create it — ' + err.message + '</p>';
+    });
+  });
+
+  document.getElementById('adminLink').addEventListener('click', function(){
+    if(!confirm('Start a brand-new empty list? Everyone will need the new ID.')) return;
+    state.blobId = '';
+    localStorage.removeItem(LS_KEY);
+    showSetup();
+    document.getElementById('setupResult').innerHTML = '';
+    var btn = document.getElementById('createListBtn');
+    btn.disabled = false;
+    btn.textContent = 'Create the shared list';
+  });
+
+  document.getElementById('refreshBtn').addEventListener('click', function(){
+    var btn = this;
+    btn.classList.add('loading');
+    if(state.blobId) loadAndRender();
+    setTimeout(function(){ btn.classList.remove('loading'); }, 700);
+  });
+
+  loadAndRender();
+  setInterval(function(){ if(state.blobId && document.getElementById('setupPanel').hidden) loadAndRender(); }, 15000);
+})();
+</script>
+</body>
+</html>
