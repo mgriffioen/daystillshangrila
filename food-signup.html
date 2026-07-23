@@ -172,7 +172,7 @@
     <!-- <p class="eyebrow">Weekend Cookout · Potluck Board</p> -->
     <h1>Food Signup for<br><span class="flame">Shangri-La</span></h1>
     <p class="lead">Five meals, 8 hunks. Claim a main or a side!</p>
-    <span class="torch-stat"><span class="torch-emoji">🔥</span> <b id="torchCount">–</b> of 5 meals have a main covered</span>
+    <span class="torch-stat"><span class="torch-emoji">🔥</span> <b id="torchCount">–</b> of <b id="torchTotal">–</b> meals have a main covered</span>
   </div>
 </header>
 
@@ -183,6 +183,7 @@
     <a class="chip" href="#sat-lunch">Sat lunch</a>
     <a class="chip" href="#sat-dinner">Sat dinner</a>
     <a class="chip" href="#sun-breakfast">Sun breakfast</a>
+    <a class="chip" href="#extras">Extras</a>
     <!-- <button class="refresh-btn" id="refreshBtn" type="button"><span class="spin">↻</span> Refresh</button> -->
   </div>
 </nav>
@@ -219,7 +220,8 @@
     {id:'sat-breakfast', label:'Saturday Breakfast',emoji:'🥞', note:'Fuel for the day'},
     {id:'sat-lunch',     label:'Saturday Lunch',    emoji:'🥪', note:'Something easy, midday'},
     {id:'sat-dinner',    label:'Saturday Dinner',   emoji:'🔥', note:'The big one'},
-    {id:'sun-breakfast', label:'Sunday Breakfast',  emoji:'🍳', note:'Last meal, make it count'}
+    {id:'sun-breakfast', label:'Sunday Breakfast',  emoji:'🍳', note:'Last meal, make it count'},
+    {id:'extras',        label:'Extras',            emoji:'🎒', note:'Snacks, drinks, anything else'}
   ];
 
   var EMPTY_MAIN = ["Claimed a main, bro!", "This spot is open", "Not Cherry BBQ chips"];
@@ -358,6 +360,7 @@
     });
 
     document.getElementById('torchCount').textContent = mainsCovered;
+    document.getElementById('torchTotal').textContent = SLOTS.length;
     wireDeletes();
   }
 
