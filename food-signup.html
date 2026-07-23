@@ -107,6 +107,7 @@
   }
 
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.1rem;}
+  .cols.single{grid-template-columns:1fr;}
   @media (max-width:480px){.cols{grid-template-columns:1fr;}}
   .col-label{
     font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
@@ -221,11 +222,12 @@
     {id:'sat-lunch',     label:'Saturday Lunch',    emoji:'🥪', note:'Something easy, midday'},
     {id:'sat-dinner',    label:'Saturday Dinner',   emoji:'🔥', note:'The big one'},
     {id:'sun-breakfast', label:'Sunday Breakfast',  emoji:'🍳', note:'Last meal, make it count'},
-    {id:'extras',        label:'Extras',            emoji:'🎒', note:'Snacks, drinks, anything else'}
+    {id:'extras',        label:'Extras',            emoji:'🎒', note:'Snacks, drinks, anything else', noKinds:true}
   ];
 
   var EMPTY_MAIN = ["Claimed a main, bro!", "This spot is open", "Not Cherry BBQ chips"];
   var EMPTY_SIDE = ['No sides yet.', 'Doritos?', 'Wide open.'];
+  var EMPTY_EXTRAS = ['Nothing yet — snacks, drinks, games, all fair game.', 'Wide open.', 'Someone bring ice.'];
 
   var API_BASE = 'https://jsonblob.com/api/jsonBlob/';
   var LS_KEY = 'shangrila-food-signup-blob-id';
@@ -301,31 +303,42 @@
       section.className = 'meal';
       section.id = slot.id;
 
+      var colsHtml = slot.noKinds
+        ? '<div class="cols single">' +
+            '<div>' +
+              '<ul class="dish-list" data-list="' + slot.id + '" data-kind="all"></ul>' +
+            '</div>' +
+          '</div>'
+        : '<div class="cols">' +
+            '<div>' +
+              '<p class="col-label">Main</p>' +
+              '<ul class="dish-list" data-list="' + slot.id + '" data-kind="main"></ul>' +
+            '</div>' +
+            '<div>' +
+              '<p class="col-label side">Side</p>' +
+              '<ul class="dish-list" data-list="' + slot.id + '" data-kind="side"></ul>' +
+            '</div>' +
+          '</div>';
+
+      var kindToggleHtml = slot.noKinds ? '' :
+          '<div class="kind-toggle" data-field="kind">' +
+            '<button type="button" class="kind-btn" data-kind="main" aria-pressed="false">Main</button>' +
+            '<button type="button" class="kind-btn" data-kind="side" aria-pressed="false">Side</button>' +
+          '</div>';
+
       section.innerHTML =
         '<div class="meal-head">' +
           '<span class="meal-emoji">' + slot.emoji + '</span>' +
           '<div class="meal-title-wrap"><h2>' + slot.label + '</h2></div>' +
           '<span class="meal-count" data-count="' + slot.id + '"></span>' +
         '</div>' +
-        '<div class="cols">' +
-          '<div>' +
-            '<p class="col-label">Main</p>' +
-            '<ul class="dish-list" data-list="' + slot.id + '" data-kind="main"></ul>' +
-          '</div>' +
-          '<div>' +
-            '<p class="col-label side">Side</p>' +
-            '<ul class="dish-list" data-list="' + slot.id + '" data-kind="side"></ul>' +
-          '</div>' +
-        '</div>' +
+        colsHtml +
         '<form class="add-form" data-slot="' + slot.id + '">' +
           '<select data-field="name" required>' +
             '<option value="" disabled selected>Who’s this?</option>' +
             NAMES.map(function(n){ return '<option value="' + n + '">' + n + '</option>'; }).join('') +
           '</select>' +
-          '<div class="kind-toggle" data-field="kind">' +
-            '<button type="button" class="kind-btn" data-kind="main" aria-pressed="false">Main</button>' +
-            '<button type="button" class="kind-btn" data-kind="side" aria-pressed="false">Side</button>' +
-          '</div>' +
+          kindToggleHtml +
           '<input type="text" data-field="desc" placeholder="What are you bringing?" maxlength="80" required>' +
           '<button class="btn" type="submit">Claim it</button>' +
           '<span class="form-hint"></span>' +
@@ -343,15 +356,24 @@
   function updateLists(){
     if(!skeletonBuilt){ buildSkeleton(); skeletonBuilt = true; }
     var mainsCovered = 0;
+    var mealSlots = SLOTS.filter(function(s){ return !s.noKinds; });
 
     SLOTS.forEach(function(slot){
       var entries = (state.data && state.data[slot.id]) || [];
+      var section = document.getElementById(slot.id);
+      if(!section) return;
+
+      if(slot.noKinds){
+        section.querySelector('[data-count="' + slot.id + '"]').textContent =
+          entries.length + ' item' + (entries.length===1?'':'s');
+        fillList(section.querySelector('[data-kind="all"]'), entries, slot.id, EMPTY_EXTRAS);
+        return;
+      }
+
       var mains = entries.filter(function(e){ return e.kind === 'main'; });
       var sides = entries.filter(function(e){ return e.kind === 'side'; });
       if(mains.length) mainsCovered++;
 
-      var section = document.getElementById(slot.id);
-      if(!section) return;
       section.querySelector('[data-count="' + slot.id + '"]').textContent =
         mains.length + ' main' + (mains.length===1?'':'s') + ' · ' + sides.length + ' side' + (sides.length===1?'':'s');
 
@@ -360,7 +382,7 @@
     });
 
     document.getElementById('torchCount').textContent = mainsCovered;
-    document.getElementById('torchTotal').textContent = SLOTS.length;
+    document.getElementById('torchTotal').textContent = mealSlots.length;
     wireDeletes();
   }
 
@@ -407,15 +429,17 @@
         var hint = form.querySelector('.form-hint');
         var name = form.querySelector('[data-field="name"]').value;
         var desc = form.querySelector('[data-field="desc"]').value.trim();
+        var hasKinds = kindButtons.length > 0;
         var kindBtn = form.querySelector('.kind-btn[aria-pressed="true"]');
         hint.classList.remove('err');
 
         if(!name){ hint.textContent = 'Pick who you are.'; hint.classList.add('err'); return; }
-        if(!kindBtn){ hint.textContent = 'Choose Main or Side.'; hint.classList.add('err'); return; }
+        if(hasKinds && !kindBtn){ hint.textContent = 'Choose Main or Side.'; hint.classList.add('err'); return; }
         if(!desc){ hint.textContent = 'Say what you’re bringing.'; hint.classList.add('err'); return; }
 
         var slotId = form.dataset.slot;
-        var entry = { id: uid(), name: name, kind: kindBtn.dataset.kind, desc: desc, ts: Date.now() };
+        var entry = { id: uid(), name: name, desc: desc, ts: Date.now() };
+        if(hasKinds) entry.kind = kindBtn.dataset.kind;
         hint.textContent = '';
         addEntry(slotId, entry, form);
       });
