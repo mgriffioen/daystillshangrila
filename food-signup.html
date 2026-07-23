@@ -536,23 +536,29 @@
     });
   });
 
-  document.getElementById('adminLink').addEventListener('click', function(){
-    if(!confirm('Start a brand-new empty list? Everyone will need the new ID.')) return;
-    state.blobId = '';
-    localStorage.removeItem(LS_KEY);
-    showSetup();
-    document.getElementById('setupResult').innerHTML = '';
-    var btn = document.getElementById('createListBtn');
-    btn.disabled = false;
-    btn.textContent = 'Create the shared list';
-  });
+  var adminLinkEl = document.getElementById('adminLink');
+  if(adminLinkEl){
+    adminLinkEl.addEventListener('click', function(){
+      if(!confirm('Start a brand-new empty list? Everyone will need the new ID.')) return;
+      state.blobId = '';
+      localStorage.removeItem(LS_KEY);
+      showSetup();
+      document.getElementById('setupResult').innerHTML = '';
+      var btn = document.getElementById('createListBtn');
+      btn.disabled = false;
+      btn.textContent = 'Create the shared list';
+    });
+  }
 
-  document.getElementById('refreshBtn').addEventListener('click', function(){
-    var btn = this;
-    btn.classList.add('loading');
-    if(state.blobId) loadAndRender();
-    setTimeout(function(){ btn.classList.remove('loading'); }, 700);
-  });
+  var refreshBtnEl = document.getElementById('refreshBtn');
+  if(refreshBtnEl){
+    refreshBtnEl.addEventListener('click', function(){
+      var btn = this;
+      btn.classList.add('loading');
+      if(state.blobId) loadAndRender();
+      setTimeout(function(){ btn.classList.remove('loading'); }, 700);
+    });
+  }
 
   loadAndRender();
   setInterval(function(){ if(state.blobId && document.getElementById('setupPanel').hidden) loadAndRender(); }, 15000);
