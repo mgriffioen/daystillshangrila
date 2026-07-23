@@ -42,7 +42,7 @@
   .hero-inner{max-width:var(--wrap);margin:0 auto;}
   .eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:0 0 .7rem;}
   h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2.1rem,9vw,3.2rem);line-height:1;letter-spacing:-.02em;margin:0 0 .6rem;}
-  h1 .flame{color:var(--ember);}
+  h1 .flame{color:var(--ember);font-size:clamp(2.1rem,9vw,2.2rem);}
   .hero p.lead{margin:0 0 1.3rem;color:#d9cdc0;font-size:1rem;max-width:44ch;}
   .torch-stat{
     display:inline-flex;align-items:center;gap:.55rem;background:#00000030;border:1px solid #40352f;
@@ -67,7 +67,7 @@
   .refresh-btn.loading .spin{animation:spin .7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  main{max-width:var(--wrap);margin:0 auto;padding:0 1rem 4rem;}
+  main{max-width:var(--wrap);margin:0 auto;padding:0 1rem 0;}
 
   /* ---------- SETUP BANNER ---------- */
   .setup{
@@ -170,9 +170,9 @@
 <header class="hero">
   <div class="hero-inner">
     <!-- <p class="eyebrow">Weekend Cookout · Potluck Board</p> -->
-    <h1>Food Signup for<br><span class="flame">Shangri-La</span></h1>
+    <h1><span class="flame">Food Signup for</span><br>Shangri-La</h1>
     <p class="lead">Five meals, 8 hunks. Claim a main or a side!</p>
-    <span class="torch-stat"><span class="torch-emoji">🔥</span> <b id="torchCount">–</b> of <b id="torchTotal">–</b> meals have a main covered</span>
+    <span class="torch-stat"><b id="torchCount">–</b> of <b id="torchTotal">–</b> meals have a main covered</span>
   </div>
 </header>
 
@@ -304,7 +304,7 @@
       section.innerHTML =
         '<div class="meal-head">' +
           '<span class="meal-emoji">' + slot.emoji + '</span>' +
-          '<div class="meal-title-wrap"><h2>' + slot.label + '</h2><p class="meal-note">' + slot.note + '</p></div>' +
+          '<div class="meal-title-wrap"><h2>' + slot.label + '</h2></div>' +
           '<span class="meal-count" data-count="' + slot.id + '"></span>' +
         '</div>' +
         '<div class="cols">' +
@@ -327,7 +327,7 @@
             '<button type="button" class="kind-btn" data-kind="side" aria-pressed="false">Side</button>' +
           '</div>' +
           '<input type="text" data-field="desc" placeholder="What are you bringing?" maxlength="80" required>' +
-          '<button class="btn" type="submit">Bring it 🔥</button>' +
+          '<button class="btn" type="submit">Claim it</button>' +
           '<span class="form-hint"></span>' +
         '</form>';
 
