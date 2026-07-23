@@ -458,13 +458,21 @@
       return apiSave(state.blobId, state.data);
     }).then(function(){
       render();
-      var newForm = document.querySelector('.add-form[data-slot="' + slotId + '"]');
-      if(newForm) burstAt(newForm);
+      setBusy(form, false);
+      resetForm(form);
+      burstAt(form);
       setStatus('Saved. Everyone will see it on refresh.');
     }).catch(function(err){
       setStatus('Couldn’t save that — ' + err.message, true);
       setBusy(form, false);
     });
+  }
+
+  function resetForm(form){
+    form.reset();
+    form.querySelectorAll('.kind-btn').forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+    var hint = form.querySelector('.form-hint');
+    if(hint){ hint.textContent = ''; hint.classList.remove('err'); }
   }
 
   function removeEntry(slotId, entryId){
