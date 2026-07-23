@@ -366,6 +366,7 @@
   function render(){ updateLists(); }
 
   function fillList(ul, entries, slotId, emptyPhrases){
+    ul.innerHTML = '';
     if(!entries.length){
       var li = document.createElement('li');
       li.className = 'empty-slot';
