@@ -118,8 +118,6 @@
     display:flex;align-items:flex-start;gap:.5rem;background:var(--paper);border:1px solid var(--line);
     border-radius:10px;padding:.55rem .6rem;
   }
-  .dish-item.pop{animation:pop .38s cubic-bezier(.2,1.4,.4,1);}
-  @keyframes pop{0%{transform:scale(.7);opacity:0;}60%{transform:scale(1.04);opacity:1;}100%{transform:scale(1);}}
   .dish-body{flex:1;min-width:0;}
   .dish-name{font-weight:700;font-size:.85rem;display:block;}
   .dish-desc{color:var(--ink-soft);font-size:.85rem;word-break:break-word;}
@@ -378,7 +376,6 @@
     entries.forEach(function(e){
       var li = document.createElement('li');
       li.className = 'dish-item';
-      if(e.justAdded){ li.classList.add('pop'); delete e.justAdded; }
       li.innerHTML =
         '<span class="dish-body"><span class="dish-name">' + escapeHtml(e.name) + '</span>' +
         '<span class="dish-desc">' + escapeHtml(e.desc) + '</span></span>' +
@@ -415,7 +412,7 @@
         if(!desc){ hint.textContent = 'Say what you’re bringing.'; hint.classList.add('err'); return; }
 
         var slotId = form.dataset.slot;
-        var entry = { id: uid(), name: name, kind: kindBtn.dataset.kind, desc: desc, ts: Date.now(), justAdded: true };
+        var entry = { id: uid(), name: name, kind: kindBtn.dataset.kind, desc: desc, ts: Date.now() };
         hint.textContent = '';
         addEntry(slotId, entry, form);
       });
