@@ -290,17 +290,13 @@
     }).then(function(r){ if(!r.ok) throw apiError('Saving', r.status); return data; });
   }
 
-  function render(){
+  var skeletonBuilt = false;
+
+  function buildSkeleton(){
     var root = document.getElementById('mealsRoot');
     root.innerHTML = '';
-    var mainsCovered = 0;
 
     SLOTS.forEach(function(slot){
-      var entries = (state.data && state.data[slot.id]) || [];
-      var mains = entries.filter(function(e){ return e.kind === 'main'; });
-      var sides = entries.filter(function(e){ return e.kind === 'side'; });
-      if(mains.length) mainsCovered++;
-
       var section = document.createElement('section');
       section.className = 'meal';
       section.id = slot.id;
@@ -309,7 +305,7 @@
         '<div class="meal-head">' +
           '<span class="meal-emoji">' + slot.emoji + '</span>' +
           '<div class="meal-title-wrap"><h2>' + slot.label + '</h2><p class="meal-note">' + slot.note + '</p></div>' +
-          '<span class="meal-count">' + mains.length + ' main' + (mains.length===1?'':'s') + ' · ' + sides.length + ' side' + (sides.length===1?'':'s') + '</span>' +
+          '<span class="meal-count" data-count="' + slot.id + '"></span>' +
         '</div>' +
         '<div class="cols">' +
           '<div>' +
@@ -335,16 +331,39 @@
           '<span class="form-hint"></span>' +
         '</form>';
 
-      fillList(section.querySelector('[data-kind="main"]'), mains, slot.id, EMPTY_MAIN);
-      fillList(section.querySelector('[data-kind="side"]'), sides, slot.id, EMPTY_SIDE);
-
       root.appendChild(section);
     });
 
-    document.getElementById('torchCount').textContent = mainsCovered;
     wireForms();
+  }
+
+  // Rebuilds only the dish lists and counts, leaving any in-progress
+  // add-item form (typed text, selections) untouched — safe to call on
+  // every poll without interrupting someone mid-entry.
+  function updateLists(){
+    if(!skeletonBuilt){ buildSkeleton(); skeletonBuilt = true; }
+    var mainsCovered = 0;
+
+    SLOTS.forEach(function(slot){
+      var entries = (state.data && state.data[slot.id]) || [];
+      var mains = entries.filter(function(e){ return e.kind === 'main'; });
+      var sides = entries.filter(function(e){ return e.kind === 'side'; });
+      if(mains.length) mainsCovered++;
+
+      var section = document.getElementById(slot.id);
+      if(!section) return;
+      section.querySelector('[data-count="' + slot.id + '"]').textContent =
+        mains.length + ' main' + (mains.length===1?'':'s') + ' · ' + sides.length + ' side' + (sides.length===1?'':'s');
+
+      fillList(section.querySelector('[data-kind="main"]'), mains, slot.id, EMPTY_MAIN);
+      fillList(section.querySelector('[data-kind="side"]'), sides, slot.id, EMPTY_SIDE);
+    });
+
+    document.getElementById('torchCount').textContent = mainsCovered;
     wireDeletes();
   }
+
+  function render(){ updateLists(); }
 
   function fillList(ul, entries, slotId, emptyPhrases){
     if(!entries.length){
@@ -483,7 +502,7 @@
     });
   }
 
-  function showSetup(){ document.getElementById('setupPanel').hidden = false; document.getElementById('mealsRoot').innerHTML = ''; }
+  function showSetup(){ document.getElementById('setupPanel').hidden = false; document.getElementById('mealsRoot').innerHTML = ''; skeletonBuilt = false; }
   function hideSetup(){ document.getElementById('setupPanel').hidden = true; }
 
   document.getElementById('createListBtn').addEventListener('click', function(){
