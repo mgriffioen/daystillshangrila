@@ -169,9 +169,9 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="eyebrow">Weekend Cookout · Potluck Board</p>
-    <h1>Bring&nbsp;something<br><span class="flame">to Shangri-La</span></h1>
-    <p class="lead">Five meals, one shared list. Claim a main or a side so we don't end up with nine bags of chips and no plates.</p>
+    <!-- <p class="eyebrow">Weekend Cookout · Potluck Board</p> -->
+    <h1>Food Signup for<br><span class="flame">Shangri-La</span></h1>
+    <p class="lead">Five meals, 8 hunks. Claim a main or a side!</p>
     <span class="torch-stat"><span class="torch-emoji">🔥</span> <b id="torchCount">–</b> of 5 meals have a main covered</span>
   </div>
 </header>
@@ -183,7 +183,7 @@
     <a class="chip" href="#sat-lunch">Sat lunch</a>
     <a class="chip" href="#sat-dinner">Sat dinner</a>
     <a class="chip" href="#sun-breakfast">Sun breakfast</a>
-    <button class="refresh-btn" id="refreshBtn" type="button"><span class="spin">↻</span> Refresh</button>
+    <!-- <button class="refresh-btn" id="refreshBtn" type="button"><span class="spin">↻</span> Refresh</button> -->
   </div>
 </nav>
 
@@ -206,8 +206,8 @@
 
 <footer>
   <div class="divider"></div>
-  Everyone sees the same list — it updates as people sign up.<br>
-  <button class="admin-link" id="adminLink" type="button">Reconnect / start a new list</button>
+  Lake Livin'<br>
+  <!-- <button class="admin-link" id="adminLink" type="button">Reconnect / start a new list</button> -->
 </footer>
 
 <script>
@@ -222,8 +222,8 @@
     {id:'sun-breakfast', label:'Sunday Breakfast',  emoji:'🍳', note:'Last meal, make it count'}
   ];
 
-  var EMPTY_MAIN = ["Nobody's claimed a main yet — glory awaits.", "This spot is wide open. No pressure.", "Mains: still zero. Bold strategy."];
-  var EMPTY_SIDE = ['No sides yet — chips don’t count (they still count).', 'Somebody bring something green. Or don’t.', 'Wide open. Dips welcome.'];
+  var EMPTY_MAIN = ["Claimed a main, bro!", "This spot is open", "Not Cherry BBQ chips"];
+  var EMPTY_SIDE = ['No sides yet.', 'Doritos?', 'Wide open.'];
 
   var API_BASE = 'https://jsonblob.com/api/jsonBlob/';
   var LS_KEY = 'shangrila-food-signup-blob-id';
