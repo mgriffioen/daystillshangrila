@@ -270,7 +270,7 @@
   }
 
   function apiCreate(data){
-    return fetch(API_BASE, {
+    return fetch(API_BASE.replace(/\/$/, ''), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
