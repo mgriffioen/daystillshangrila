@@ -57,6 +57,8 @@
   .nav-scroll::-webkit-scrollbar{display:none;}
   .chip{flex:none;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding:.5rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--card);transition:background .15s,color .15s,border-color .15s;white-space:nowrap;}
   .chip:active{transform:scale(.96);}
+  .chip.site{background:var(--char);color:#fff;border-color:var(--char);}
+  .nav-divider{flex:none;width:1px;align-self:stretch;background:var(--line);margin:0 .25rem;}
   .refresh-btn{
     margin-left:auto;flex:none;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;
     color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:999px;
@@ -179,6 +181,9 @@
 
 <nav aria-label="Jump to meal">
   <div class="nav-scroll">
+    <a class="chip site" href="index.html">Home</a>
+    <a class="chip site" href="recipes.html">Recipes</a>
+    <span class="nav-divider" aria-hidden="true"></span>
     <a class="chip" href="#fri-dinner">Fri dinner</a>
     <a class="chip" href="#sat-breakfast">Sat breakfast</a>
     <a class="chip" href="#sat-lunch">Sat lunch</a>
