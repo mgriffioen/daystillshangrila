@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>days till Shangri-La</title>
+  <title>days till Shangrilito</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     :root {
@@ -124,31 +124,31 @@
       return n.toString();
     }
 
-    function getDaysUntilShangriLa() {
+    function getDaysUntilShangrilito() {
       const now = new Date();
       const year = now.getFullYear();
 
-      let shangriLa = new Date(year, 7, 14);
+      let shangrilito = new Date(year, 10, 13);
 
-      const end = new Date(year, 7, 16, 23, 59, 59);
+      const end = new Date(year, 10, 15, 23, 59, 59);
       if (now > end) {
-        shangriLa = new Date(year + 1, 7, 14);
+        shangrilito = new Date(year + 1, 10, 13);
       }
 
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const target = new Date(shangriLa.getFullYear(), shangriLa.getMonth(), shangriLa.getDate());
+      const target = new Date(shangrilito.getFullYear(), shangrilito.getMonth(), shangrilito.getDate());
 
       const diff = Math.round((target - today) / (1000 * 60 * 60 * 24));
       return diff;
     }
 
     function buildMessage(days) {
-      if (days === 0) return "Shangri-La\nis\nhere";
-      if (days < 0) return "Shangri-La\nis\nhappening\nnow";
+      if (days === 0) return "Shangrilito\nis\nhere";
+      if (days < 0) return "Shangrilito\nis\nhappening\nnow";
 
       const word = toWords(days);
       const dayWord = days === 1 ? 'day' : 'days';
-      return `${word}\n${dayWord}\ntill\nShangri-La`;
+      return `${word}\n${dayWord}\ntill\nShangrilito`;
     }
 
     function fitText(el) {
@@ -165,7 +165,7 @@
       el.style.fontSize = (size - 0.5) + 'vw';
     }
 
-    const days = getDaysUntilShangriLa();
+    const days = getDaysUntilShangrilito();
     const el = document.getElementById('countdown');
     el.textContent = buildMessage(days);
     el.style.whiteSpace = 'pre-line';
