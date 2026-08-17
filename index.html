@@ -6,10 +6,6 @@
   <title>days till Shangrilito</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
-    :root {
-      --bar-h: 48px;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -28,46 +24,8 @@
       justify-content: center;
       min-height: 100vh;
       padding: 2vw;
-      padding-top: calc(2vw + var(--bar-h) + env(safe-area-inset-top));
+      padding-top: calc(2vw + env(safe-area-inset-top));
       touch-action: manipulation;
-    }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: calc(var(--bar-h) + env(safe-area-inset-top));
-      padding-top: env(safe-area-inset-top);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.75rem;
-      background: rgba(0, 0, 0, 0.32);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 10;
-    }
-
-    .topbar a {
-      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.4rem 0.2rem;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s, opacity 0.15s;
-    }
-
-    .topbar a:hover,
-    .topbar a:focus-visible {
-      border-bottom-color: #fff;
-    }
-
-    .topbar a:active {
-      opacity: 0.7;
     }
 
     #countdown {
@@ -81,10 +39,6 @@
   </style>
 </head>
 <body>
-  <nav class="topbar">
-    <a href="recipes.html">Recipes</a>
-    <a href="food-signup.html">Food Sign-Up</a>
-  </nav>
   <div id="countdown"></div>
 
   <script>
@@ -154,9 +108,8 @@
     function fitText(el) {
       let size = 10;
       el.style.fontSize = size + 'vw';
-      const barH = document.querySelector('.topbar').offsetHeight;
       const maxW = window.innerWidth * 0.96;
-      const maxH = (window.innerHeight - barH) * 0.96;
+      const maxH = window.innerHeight * 0.96;
 
       while (size < 200 && el.scrollWidth <= maxW && el.scrollHeight <= maxH) {
         size += 0.5;
