@@ -82,11 +82,11 @@
       const now = new Date();
       const year = now.getFullYear();
 
-      let shangrilito = new Date(year, 10, 13);
+      let shangrilito = new Date(year, 10, 6);
 
-      const end = new Date(year, 10, 15, 23, 59, 59);
+      const end = new Date(year, 10, 8, 23, 59, 59);
       if (now > end) {
-        shangrilito = new Date(year + 1, 10, 13);
+        shangrilito = new Date(year + 1, 10, 6);
       }
 
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
